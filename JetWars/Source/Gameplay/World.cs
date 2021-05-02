@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using JetWars.Source;
+using JetWars.Source.Gameplay.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,13 +13,13 @@ namespace JetWars
 {
     public class World
     {
-        public Jet jet;
+        public PlayerJet playerJet;
         public ScrollingBackground bg1;
         public ScrollingBackground bg2;
 
         public World()
         {
-            jet = new Jet("jet", new Vector2(300, 300), new Vector2(50, 50));
+            playerJet = new PlayerJet();
             bg1 = new ScrollingBackground("star1",new Rectangle(0,0,900,675),2);
             bg2 = new ScrollingBackground("star2", new Rectangle(0, -675,900,675),2);
         }
@@ -29,7 +30,7 @@ namespace JetWars
             bg1.Update();
             bg2.Update();
 
-            jet.Update();
+            playerJet.Update();
         }
 
         private void AdjustBackground()
@@ -46,7 +47,7 @@ namespace JetWars
         {
             bg1.Draw(Vector2.Zero);
             bg2.Draw(Vector2.Zero);
-            jet.Draw(OFFSET);
+            playerJet.Draw(OFFSET);
         }
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace JetWars
 {
-    public class Basic2D
+    public abstract class Basic2D
     {
         public float rotation;
         public Vector2 position, dimension;
@@ -21,10 +21,8 @@ namespace JetWars
 
             model = Globals.content.Load<Texture2D>(PATH);
         }
-        public virtual void Update()
-        {
+        public abstract void Update();
 
-        }
         public virtual void Draw(Vector2 OFFSET)
         {
             if(model != null)

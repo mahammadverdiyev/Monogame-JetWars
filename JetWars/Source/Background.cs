@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 namespace JetWars.Source
 {
-    public class Background : Basic2D
+    public abstract class Background : Basic2D
     {
         public Rectangle backgroundBox;
         public Background(string path, Rectangle bgBox) 

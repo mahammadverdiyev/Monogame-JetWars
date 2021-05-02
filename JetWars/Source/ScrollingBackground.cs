@@ -18,7 +18,6 @@ namespace JetWars.Source
 
         public override void Update()
         {
-            base.Update();
             backgroundBox.Y += scrollingSpeed;
         }
 
