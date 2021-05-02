@@ -36,12 +36,18 @@ namespace JetWars
 
         protected override void LoadContent()
         {
-            Globals.content = this.Content;
+            InitializeGlobals();
+            world = new World();
+        }
+
+        private void InitializeGlobals()
+        {
+            Globals.content = Content;
             Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
             Globals.keyboard = new MEKeyboard();
             Globals.mouse = new MEMouseControl();
-
-            world = new World();
+            Globals.screenWidth = GraphicsDevice.Viewport.Width;
+            Globals.screenHeight = GraphicsDevice.Viewport.Height;
         }
 
         protected override void Update(GameTime gameTime)
