@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetWars.Source.Engine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -29,7 +30,7 @@ namespace JetWars.Source.Gameplay.Models
 
         public override void RotateJet()
         {
-            rotation = Globals.RotateTowards(position, Globals.mouse.GetScreenPos(Globals.mouse.New));
+            rotation = Physics.RotateTowards(position, Globals.mouse.GetScreenPos(Globals.mouse.New));
         }
 
         private void MoveJet()
