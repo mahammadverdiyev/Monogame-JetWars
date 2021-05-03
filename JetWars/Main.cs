@@ -41,6 +41,10 @@ namespace JetWars
 
         private void InitializeGlobals()
         {
+            Globals.leftBound = new Rectangle(18, 0, 1, Globals.screenHeight);
+            Globals.rightBound = new Rectangle(Globals.screenWidth + 22, 0, 1, Globals.screenHeight);
+            Globals.topBound = new Rectangle(0, 10, Globals.screenWidth, 1);
+            Globals.bottomBound = new Rectangle(0, Globals.screenHeight + 22, Globals.screenWidth, 1);
             Globals.content = Content;
             Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
             Globals.keyboard = new MEKeyboard();

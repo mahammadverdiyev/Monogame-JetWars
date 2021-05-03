@@ -22,11 +22,6 @@ namespace JetWars
             playerJet = new PlayerJet();
             bg1 = new ScrollingBackground("star1",new Rectangle(0,0,900,675), 1);
             bg2 = new ScrollingBackground("star2", new Rectangle(0, -675,900,675), 1);
-
-            Globals.leftBound = new Rectangle(18, 0, 1, Globals.screenHeight);
-            Globals.rightBound = new Rectangle(Globals.screenWidth + 22, 0, 1, Globals.screenHeight);
-            Globals.topBound = new Rectangle(0, 10, Globals.screenWidth, 1);
-            Globals.bottomBound = new Rectangle(0, Globals.screenHeight + 22, Globals.screenWidth, 1);
         }
 
         public void Update(GameTime gameTime)

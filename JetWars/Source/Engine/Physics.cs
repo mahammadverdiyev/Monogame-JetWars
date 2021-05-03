@@ -22,8 +22,7 @@ namespace JetWars.Source.Engine
         {
             Vector2 distance = Vector2.Zero;
 
-            distance.X = focus.X - source.X;
-            distance.Y = focus.Y - source.Y;
+            distance = focus - source;
 
             float angle = (float)Math.Atan2(distance.Y, distance.X) + ((1f * (float)Math.PI) / 2);
             return angle;
@@ -32,6 +31,13 @@ namespace JetWars.Source.Engine
         public static float GetDistance(Vector2 position, Vector2 target)
         {
             return (float)Math.Sqrt(Math.Pow(position.X - target.X, 2) + Math.Pow(position.Y - target.Y, 2));
+        }
+        public static bool TouchesOneOfBounds(Rectangle rect)
+        {
+            return Globals.leftBound.Intersects(rect) ||
+                   Globals.rightBound.Intersects(rect) ||
+                   Globals.topBound.Intersects(rect) ||
+                   Globals.bottomBound.Intersects(rect);
         }
     }
 }

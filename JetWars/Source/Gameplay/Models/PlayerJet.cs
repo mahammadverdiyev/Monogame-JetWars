@@ -18,11 +18,7 @@ namespace JetWars.Source.Gameplay.Models
 {
     public class PlayerJet : Jet
     {
-		private MouseState mouseState;
-		private MouseState lastMouseState;
-		private Bullet currentBullet;
-		private List<Bullet> bullets;
-		private GameTime gameTime;
+		List<Bullet> bullets;
         public PlayerJet() : base("jet", new Vector2(300, 300), new Vector2(50, 50))
 		{
 			bullets = new List<Bullet>();
@@ -30,19 +26,43 @@ namespace JetWars.Source.Gameplay.Models
 
         public override void Update(GameTime gameTime)
         {
-			this.gameTime = gameTime;
             MoveJet(gameTime);
             RotateJet();
 
-			mouseState = Mouse.GetState();
-
-			if (lastMouseState.LeftButton == ButtonState.Released && mouseState.LeftButton == ButtonState.Pressed)
-			{
+			if (Globals.mouse.LeftClick())
 				Shoot();
-			}
 
-			lastMouseState = mouseState;
+			UpdateBullets(gameTime);
         }
+		private void Shoot()
+		{
+			Bullet bullet = new Bullet("ammo", position, new Vector2(10, 10), this,rotation);
+			
+			bullet.position -= bullet.dimension / 2;
+			bullet.position.X -= 15;
+			bullet.direction = Globals.mouse.newMousePos - bullet.position;
+
+			if (bullet.direction != Vector2.Zero)
+				bullet.direction.Normalize();
+
+			bullet.isVisible = true;
+			
+			if (bullets.Count < 20)
+				bullets.Add(bullet);
+		}
+		private void UpdateBullets(GameTime gameTime)
+        {
+			bullets.ForEach(bullet => bullet.Update(gameTime));
+			for(int i = 0; i < bullets.Count; i++)
+            {
+				if (!bullets[i].isVisible)
+                {
+					bullets.RemoveAt(i);
+					i--;
+				}
+            }
+        }
+
 
 		public override void RotateJet()
         {
@@ -82,37 +102,20 @@ namespace JetWars.Source.Gameplay.Models
 
 			Rectangle rect = new Rectangle((int)position.X, (int)position.Y, (int)dimension.X, (int)dimension.Y);
 
-			if (IsInsideScreen(rect))
+			if (Physics.TouchesOneOfBounds(rect))
 			{
 				position -= movement;
 			}
 		}
 
-		private static bool IsInsideScreen(Rectangle rect)
-		{
-			return Globals.leftBound.Intersects(rect) ||
-				   Globals.rightBound.Intersects(rect) ||
-				   Globals.topBound.Intersects(rect) ||
-				   Globals.bottomBound.Intersects(rect);
-		}
+
 
 		public override void Draw(Vector2 OFFSET)
 		{
-			if (currentBullet == null) return;
-			currentBullet.Draw(Vector2.Zero);
+			bullets.ForEach(bullet => bullet.Draw(Vector2.Zero));
 			base.Draw(OFFSET);
 		}
 
-		private void Shoot()
-		{
-			currentBullet = new Bullet("ammo", position, new Vector2(16, 16), this);
-			
-			foreach (Bullet bullet in bullets)
-			{
-				currentBullet.Update(gameTime);
-			}
 
-			bullets.Add(currentBullet);
-		}
 	}
 }

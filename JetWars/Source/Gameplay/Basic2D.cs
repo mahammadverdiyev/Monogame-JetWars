@@ -13,12 +13,11 @@ namespace JetWars
         protected float rotation;
         public Vector2 position, dimension;
         protected Texture2D model;
-
+     
         public Basic2D(string PATH,Vector2 POSITION, Vector2 DIMENSION)
         {
             position = POSITION;
             dimension = DIMENSION;
-
             model = Globals.content.Load<Texture2D>(PATH);
         }
         public abstract void Update(GameTime gameTime);

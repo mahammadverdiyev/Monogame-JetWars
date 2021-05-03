@@ -27,5 +27,6 @@ namespace JetWars
         public static Rectangle rightBound;
         public static Rectangle topBound;
         public static Rectangle bottomBound;
+
     }
 }
