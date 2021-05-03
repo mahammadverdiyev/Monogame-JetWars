@@ -21,7 +21,7 @@ namespace JetWars
 
             model = Globals.content.Load<Texture2D>(PATH);
         }
-        public abstract void Update();
+        public abstract void Update(GameTime gameTime);
 
         public virtual void Draw(Vector2 OFFSET)
         {

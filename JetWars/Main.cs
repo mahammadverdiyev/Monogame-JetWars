@@ -58,7 +58,7 @@ namespace JetWars
             Globals.keyboard.Update();
             Globals.mouse.Update();
 
-            world.Update();
+            world.Update(gameTime);
 
             Globals.keyboard.UpdateOld();
             Globals.mouse.UpdateOld();

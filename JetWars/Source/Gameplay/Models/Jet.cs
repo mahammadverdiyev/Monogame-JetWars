@@ -17,10 +17,14 @@ namespace JetWars
     public abstract class Jet : Basic2D
     {
         public float speed;
+        protected Vector2 velocity;
+        protected Vector2 acceleration;
 
         public Jet(string PATH, Vector2 POSITION, Vector2 DIMENSION) : base(PATH,POSITION,DIMENSION)
         {
             speed = 5.0f;
+            velocity = new Vector2(0, 0);
+            acceleration = Vector2.Zero;
         }
 
         public virtual void RotateJet()

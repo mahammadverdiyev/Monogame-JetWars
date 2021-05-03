@@ -23,14 +23,14 @@ namespace JetWars
             bg1 = new ScrollingBackground("star1",new Rectangle(0,0,900,675),2);
             bg2 = new ScrollingBackground("star2", new Rectangle(0, -675,900,675),2);
         }
-        public virtual void Update()
+        public virtual void Update(GameTime gameTime)
         {
             AdjustBackground();
 
-            bg1.Update();
-            bg2.Update();
+            bg1.Update(gameTime);
+            bg2.Update(gameTime);
 
-            playerJet.Update();
+            playerJet.Update(gameTime);
         }
 
         private void AdjustBackground()
@@ -40,7 +40,6 @@ namespace JetWars
 
             if (bg2.backgroundBox.Y >= Globals.screenHeight)
                 bg2.backgroundBox.Y = bg1.backgroundBox.Y - bg1.backgroundBox.Height;
-
         }
 
         public virtual void Draw(Vector2 OFFSET)

@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
+using JetWars.Source.Engine;
 #endregion
 
 namespace JetWars
@@ -64,14 +65,12 @@ namespace JetWars
         {
             GetMouseAndAdjust();
 
-
             if(newMouse.LeftButton == ButtonState.Pressed && oldMouse.LeftButton == ButtonState.Released)
             {
                 firstMouse = newMouse;
                 firstMousePos = newMousePos = GetScreenPos(firstMouse);
             }
 
-            
         }
 
         public void UpdateOld()
@@ -82,16 +81,14 @@ namespace JetWars
 
         public virtual float GetDistanceFromClick()
         {
-            return Globals.GetDistance(newMousePos, firstMousePos);
+            return Physics.GetDistance(newMousePos, firstMousePos);
         }
 
         public virtual void GetMouseAndAdjust()
         {
             newMouse = Mouse.GetState();
             newMousePos = GetScreenPos(newMouse);
-
         }
-
 
         public int GetMouseWheelChange()
         {
@@ -101,9 +98,9 @@ namespace JetWars
 
         public Vector2 GetScreenPos(MouseState MOUSE)
         {
-            Vector2 tempVec = new Vector2(MOUSE.Position.X, MOUSE.Position.Y);
+            Vector2 temporaryVector = new Vector2(MOUSE.Position.X, MOUSE.Position.Y);
 
-            return tempVec;
+            return temporaryVector;
         }
 
         public virtual bool LeftClick()
