@@ -75,7 +75,8 @@ namespace JetWars.Source.Gameplay.Models
 			}
 
 			float movementForce = 600f;
-			movement = new Vector2(horizontalInput, verticalInput) * (float)Globals.gameTime.ElapsedGameTime.TotalSeconds * movementForce;
+			float delta = (float)Globals.gameTime.ElapsedGameTime.TotalSeconds;
+			movement = new Vector2(horizontalInput, verticalInput) * delta * movementForce;
 			position += movement;
 
 			Rectangle rect = new Rectangle((int)position.X, (int)position.Y, (int)dimension.X, (int)dimension.Y);

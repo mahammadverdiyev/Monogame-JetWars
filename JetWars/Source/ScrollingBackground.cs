@@ -18,7 +18,8 @@ namespace JetWars.Source
 
         public override void Update()
         {
-            backgroundBox.Y += scrollingSpeed;
+            float delta = (float)Globals.gameTime.ElapsedGameTime.TotalSeconds;
+            backgroundBox.Y += scrollingSpeed * (int)Math.Ceiling(delta);
         }
 
     }

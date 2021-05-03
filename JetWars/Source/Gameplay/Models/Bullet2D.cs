@@ -7,6 +7,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using JetWars.Source.Engine;
+using System.Diagnostics;
 
 namespace JetWars.Source.Gameplay.Models
 {
@@ -30,17 +31,21 @@ namespace JetWars.Source.Gameplay.Models
             this.owner = owner;
 
             direction = Physics.GetDirection(owner.position, target);
-
+            
             timer = new METimer(1500);
         }
 
         public override void Update()
         {
+            // leave empty
         }
 
         public virtual void Update(Vector2 offset, List<Jet> jets)
         {
-            position += direction * speed;
+            float speedForce = 50f;
+            float delta = (float)Globals.gameTime.ElapsedGameTime.TotalSeconds;
+
+            position += direction * speed * delta * speedForce;
 
             timer.UpdateTimer();
 
