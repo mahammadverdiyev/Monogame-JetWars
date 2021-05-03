@@ -16,7 +16,7 @@ namespace JetWars.Source
             this.scrollingSpeed = scrollingSpeed;
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update()
         {
             backgroundBox.Y += scrollingSpeed;
         }

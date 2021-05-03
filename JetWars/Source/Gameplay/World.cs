@@ -13,25 +13,53 @@ namespace JetWars
 {
     public class World
     {
+
         public PlayerJet playerJet;
         public ScrollingBackground bg1;
         public ScrollingBackground bg2;
+
+        public Vector2 offset;
+        public List<Bullet2D> projectiles = new List<Bullet2D>();
 
         public World()
         {
             playerJet = new PlayerJet();
             bg1 = new ScrollingBackground("star1",new Rectangle(0,0,900,675), 1);
             bg2 = new ScrollingBackground("star2", new Rectangle(0, -675,900,675), 1);
+            
+            GameGlobals.PassBullet = AddBullet;
+            offset = Vector2.Zero;
         }
 
-        public void Update(GameTime gameTime)
+        public void Update()
         {
             AdjustBackground();
 
-            bg1.Update(gameTime);
-            bg2.Update(gameTime);
+            bg1.Update();
+            bg2.Update();
 
-            playerJet.Update(gameTime);
+            UpdateProjectiles();
+
+            playerJet.Update();
+        }
+
+        private void UpdateProjectiles()
+        {
+            for (int i = 0; i < projectiles.Count; i++)
+            {
+                projectiles[i].Update(offset, null);
+                if (projectiles[i].done)
+                {
+                    projectiles.RemoveAt(i);
+                    i--;
+                }
+
+            }
+        }
+
+        public virtual void AddBullet(object info)
+        {
+            projectiles.Add((Bullet2D)info);
         }
 
         private void AdjustBackground()
@@ -48,6 +76,7 @@ namespace JetWars
             bg1.Draw(Vector2.Zero);
             bg2.Draw(Vector2.Zero);
             playerJet.Draw(OFFSET);
+            projectiles.ForEach(projectile => projectile.Draw(offset));
         }
     }
 }

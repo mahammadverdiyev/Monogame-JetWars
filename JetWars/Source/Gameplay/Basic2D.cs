@@ -10,7 +10,7 @@ namespace JetWars
 {
     public abstract class Basic2D
     {
-        protected float rotation;
+        public float rotation;
         public Vector2 position, dimension;
         protected Texture2D model;
      
@@ -20,7 +20,7 @@ namespace JetWars
             dimension = DIMENSION;
             model = Globals.content.Load<Texture2D>(PATH);
         }
-        public abstract void Update(GameTime gameTime);
+        public abstract void Update();
 
         public virtual void Draw(Vector2 OFFSET)
         {

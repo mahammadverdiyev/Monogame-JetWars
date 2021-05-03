@@ -14,14 +14,14 @@ using Microsoft.Xna.Framework.Media;
 
 namespace JetWars
 {
-    public class MEKeyboard
+    public class KeyboardControl
     {
 
         public KeyboardState newKeyboard, oldKeyboard;
 
         public List<MEKey> pressedKeys = new List<MEKey>(), previousPressedKeys = new List<MEKey>();
 
-        public MEKeyboard()
+        public KeyboardControl()
         {
 
         }

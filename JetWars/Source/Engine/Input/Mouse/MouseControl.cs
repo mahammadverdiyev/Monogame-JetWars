@@ -16,7 +16,7 @@ using JetWars.Source.Engine;
 
 namespace JetWars
 {
-    public class MEMouseControl
+    public class MouseControl
     {
         public bool dragging, rightDrag;
 
@@ -24,7 +24,7 @@ namespace JetWars
 
         public MouseState newMouse, oldMouse, firstMouse;
 
-        public MEMouseControl()
+        public MouseControl()
         {
             dragging = false;
 

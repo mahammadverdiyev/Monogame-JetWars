@@ -30,6 +30,13 @@ namespace JetWars
 
         protected override void Initialize()
         {
+            Globals.screenWidth = 900;
+            Globals.screenHeight = 675;
+
+            _graphics.PreferredBackBufferWidth = Globals.screenWidth;
+            _graphics.PreferredBackBufferHeight = Globals.screenHeight;
+
+            _graphics.ApplyChanges();
             base.Initialize();
         }
 
@@ -47,8 +54,8 @@ namespace JetWars
             Globals.bottomBound = new Rectangle(0, Globals.screenHeight + 22, Globals.screenWidth, 1);
             Globals.content = Content;
             Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
-            Globals.keyboard = new MEKeyboard();
-            Globals.mouse = new MEMouseControl();
+            Globals.keyboard = new KeyboardControl();
+            Globals.mouse = new MouseControl();
             Globals.screenWidth = GraphicsDevice.Viewport.Width;
             Globals.screenHeight = GraphicsDevice.Viewport.Height;
         }
@@ -58,10 +65,11 @@ namespace JetWars
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            Globals.gameTime = gameTime;
             Globals.keyboard.Update();
             Globals.mouse.Update();
 
-            world.Update(gameTime);
+            world.Update();
 
             Globals.keyboard.UpdateOld();
             Globals.mouse.UpdateOld();

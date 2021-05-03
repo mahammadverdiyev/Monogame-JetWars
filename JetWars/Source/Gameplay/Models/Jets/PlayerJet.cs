@@ -18,58 +18,36 @@ namespace JetWars.Source.Gameplay.Models
 {
     public class PlayerJet : Jet
     {
-		List<Bullet> bullets;
         public PlayerJet() : base("jet", new Vector2(300, 300), new Vector2(50, 50))
 		{
-			bullets = new List<Bullet>();
 		}
 
-        public override void Update(GameTime gameTime)
+        public override void Update()
         {
-            MoveJet(gameTime);
+            MoveJet();
             RotateJet();
 
-			if (Globals.mouse.LeftClick())
-				Shoot();
-
-			UpdateBullets(gameTime);
-        }
-		private void Shoot()
-		{
-			Bullet bullet = new Bullet("ammo", position, new Vector2(10, 10), this,rotation);
-			
-			bullet.position -= bullet.dimension / 2;
-			bullet.position.X -= 15;
-			bullet.direction = Globals.mouse.newMousePos - bullet.position;
-
-			if (bullet.direction != Vector2.Zero)
-				bullet.direction.Normalize();
-
-			bullet.isVisible = true;
-			
-			if (bullets.Count < 20)
-				bullets.Add(bullet);
-		}
-		private void UpdateBullets(GameTime gameTime)
-        {
-			bullets.ForEach(bullet => bullet.Update(gameTime));
-			for(int i = 0; i < bullets.Count; i++)
+			if(Globals.mouse.LeftClick())
             {
-				if (!bullets[i].isVisible)
-                {
-					bullets.RemoveAt(i);
-					i--;
-				}
+				Shoot();
             }
+
         }
 
+		private void Shoot()
+        {
+			Bullet2D projectile = 
+				new StandardBullet(new Vector2(position.X, position.Y), this, new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y),rotation);
+
+			GameGlobals.PassBullet(projectile);
+		}
 
 		public override void RotateJet()
         {
             rotation = Physics.RotateTowards(position, Globals.mouse.GetScreenPos(Globals.mouse.New));
         }
 
-        private void MoveJet(GameTime gameTime)
+        private void MoveJet()
 		{
 			KeyboardState currentKey = Keyboard.GetState();
 			Vector2 movement = Vector2.Zero;
@@ -97,7 +75,7 @@ namespace JetWars.Source.Gameplay.Models
 			}
 
 			float movementForce = 600f;
-			movement = new Vector2(horizontalInput, verticalInput) * (float)gameTime.ElapsedGameTime.TotalSeconds * movementForce;
+			movement = new Vector2(horizontalInput, verticalInput) * (float)Globals.gameTime.ElapsedGameTime.TotalSeconds * movementForce;
 			position += movement;
 
 			Rectangle rect = new Rectangle((int)position.X, (int)position.Y, (int)dimension.X, (int)dimension.Y);
@@ -112,10 +90,9 @@ namespace JetWars.Source.Gameplay.Models
 
 		public override void Draw(Vector2 OFFSET)
 		{
-			bullets.ForEach(bullet => bullet.Draw(Vector2.Zero));
+			//bullets.ForEach(bullet => bullet.Draw(Vector2.Zero));
 			base.Draw(OFFSET);
 		}
-
 
 	}
 }

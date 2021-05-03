@@ -32,6 +32,15 @@ namespace JetWars.Source.Engine
         {
             return (float)Math.Sqrt(Math.Pow(position.X - target.X, 2) + Math.Pow(position.Y - target.Y, 2));
         }
+
+        public static Vector2 GetDirection(Vector2 source, Vector2 target)
+        {
+            Vector2 direction = target - source;
+            if (direction != Vector2.Zero)
+                direction.Normalize();
+
+            return direction;
+        }
         public static bool TouchesOneOfBounds(Rectangle rect)
         {
             return Globals.leftBound.Intersects(rect) ||
