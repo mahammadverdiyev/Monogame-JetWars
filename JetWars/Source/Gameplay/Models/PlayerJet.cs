@@ -18,123 +18,101 @@ namespace JetWars.Source.Gameplay.Models
 {
     public class PlayerJet : Jet
     {
-        float friction = 0.08f;
-        KeyboardState presentKey;
-        KeyboardState pastKey;
-        float maxVelocity = 10f;
-        bool isMoving = false;
+		private MouseState mouseState;
+		private MouseState lastMouseState;
+		private Bullet currentBullet;
+		private List<Bullet> bullets;
+		private GameTime gameTime;
         public PlayerJet() : base("jet", new Vector2(300, 300), new Vector2(50, 50))
-        {
-
-        }
+		{
+			bullets = new List<Bullet>();
+		}
 
         public override void Update(GameTime gameTime)
         {
+			this.gameTime = gameTime;
             MoveJet(gameTime);
             RotateJet();
+
+			mouseState = Mouse.GetState();
+
+			if (lastMouseState.LeftButton == ButtonState.Released && mouseState.LeftButton == ButtonState.Pressed)
+			{
+				Shoot();
+			}
+
+			lastMouseState = mouseState;
         }
 
-        public override void RotateJet()
+		public override void RotateJet()
         {
             rotation = Physics.RotateTowards(position, Globals.mouse.GetScreenPos(Globals.mouse.New));
         }
 
         private void MoveJet(GameTime gameTime)
-        {
+		{
+			KeyboardState currentKey = Keyboard.GetState();
+			Vector2 movement = Vector2.Zero;
+			float horizontalInput = 0f;
+			float verticalInput = 0f;
 
-            presentKey = Keyboard.GetState();
+			if (currentKey.IsKeyDown(Keys.W))
+			{
+				verticalInput = -1f;
+			}
 
-            Vector2 oldPosition = position;
+			if (currentKey.IsKeyDown(Keys.S))
+			{
+				verticalInput = 1f;
+			}
 
-            float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
+			if (currentKey.IsKeyDown(Keys.A))
+			{
+				horizontalInput = -1f;
+			}
 
-            position += velocity*acceleration * delta * 10;
+			if (currentKey.IsKeyDown(Keys.D))
+			{
+				horizontalInput = 1f;
+			}
 
+			float movementForce = 600f;
+			movement = new Vector2(horizontalInput, verticalInput) * (float)gameTime.ElapsedGameTime.TotalSeconds * movementForce;
+			position += movement;
 
-            if (position == oldPosition)
-            {
-                velocity = Vector2.Zero;
-                acceleration = Vector2.Zero;
-            }
-            bool currentMovement = false;
+			Rectangle rect = new Rectangle((int)position.X, (int)position.Y, (int)dimension.X, (int)dimension.Y);
 
-            if (acceleration.X < 10)
-            {
-                acceleration.X += 1f;
-            }
-            if(acceleration.Y < 10)
-            {
-                acceleration.Y += 1f;
-            }
+			if (IsInsideScreen(rect))
+			{
+				position -= movement;
+			}
+		}
 
-            if (presentKey.IsKeyDown(Keys.W) && velocity.Y > -maxVelocity)
-            {
+		private static bool IsInsideScreen(Rectangle rect)
+		{
+			return Globals.leftBound.Intersects(rect) ||
+				   Globals.rightBound.Intersects(rect) ||
+				   Globals.topBound.Intersects(rect) ||
+				   Globals.bottomBound.Intersects(rect);
+		}
 
-                velocity.Y = velocity.Y - acceleration.Y * delta;
-                currentMovement = true;
-            }
+		public override void Draw(Vector2 OFFSET)
+		{
+			if (currentBullet == null) return;
+			currentBullet.Draw(Vector2.Zero);
+			base.Draw(OFFSET);
+		}
 
-            if (presentKey.IsKeyDown(Keys.S) && velocity.Y < maxVelocity)
-            {
-  
-                velocity.Y = velocity.Y +  acceleration.Y * delta;
-                currentMovement = true;
-            }
-            if (presentKey.IsKeyDown(Keys.A) && velocity.X > -maxVelocity)
-            {
-                velocity.X = velocity.X - acceleration.X * delta;
-                currentMovement = true;
-            }
-            if (presentKey.IsKeyDown(Keys.D) && velocity.X < maxVelocity)
-            {
-                velocity.X = velocity.X + acceleration.X * delta;
-                currentMovement = true;
-            }
+		private void Shoot()
+		{
+			currentBullet = new Bullet("ammo", position, new Vector2(16, 16), this);
+			
+			foreach (Bullet bullet in bullets)
+			{
+				currentBullet.Update(gameTime);
+			}
 
-            if (!currentMovement)
-            {
-                isMoving = false;
-                acceleration.X -= 0.5f;
-                acceleration.Y -= 0.5f;
-                float i = velocity.X;
-                float j = velocity.Y;
-                velocity.X = i -= i * friction;
-                velocity.Y = j -= j * friction;
-            }
-
-            if (acceleration.X < 0)
-                acceleration.X = 0;
-
-            if (acceleration.Y < 0)
-                acceleration.Y = 0;
-            //if (_jetPosition.X > _graphics.PreferredBackBufferWidth - _jetTexture.Width / 2)
-            //    _jetPosition.X = _graphics.PreferredBackBufferWidth - _jetTexture.Width / 2;
-            //else if (_jetPosition.X < _jetTexture.Width / 2)
-            //    _jetPosition.X = _jetTexture.Width / 2;
-
-            //if (_jetPosition.Y > _graphics.PreferredBackBufferHeight - _jetTexture.Height / 2)
-            //    _jetPosition.Y = _graphics.PreferredBackBufferHeight - _jetTexture.Height / 2;
-            //else if (_jetPosition.Y < _jetTexture.Height / 2)
-            //    _jetPosition.Y = _jetTexture.Height / 2;
-
-
-
-            //if (Globals.keyboard.GetPress("A"))
-            //{
-            //    position.X -= speed;
-            //}
-            //if (Globals.keyboard.GetPress("D"))
-            //{
-            //    position.X += speed;
-            //}
-            //if (Globals.keyboard.GetPress("W"))
-            //{
-            //    position.Y -= speed;
-            //}
-            //if (Globals.keyboard.GetPress("S"))
-            //{
-            //    position.Y += speed;
-            //}
-        }
-    }
+			bullets.Add(currentBullet);
+		}
+	}
 }

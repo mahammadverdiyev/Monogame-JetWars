@@ -10,9 +10,9 @@ namespace JetWars
 {
     public abstract class Basic2D
     {
-        public float rotation;
+        protected float rotation;
         public Vector2 position, dimension;
-        public Texture2D model;
+        protected Texture2D model;
 
         public Basic2D(string PATH,Vector2 POSITION, Vector2 DIMENSION)
         {

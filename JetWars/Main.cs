@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
@@ -21,7 +20,7 @@ namespace JetWars
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        World world;
+        private World world;
         public Main()
         {
             _graphics = new GraphicsDeviceManager(this);

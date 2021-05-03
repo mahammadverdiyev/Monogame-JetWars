@@ -20,10 +20,16 @@ namespace JetWars
         public World()
         {
             playerJet = new PlayerJet();
-            bg1 = new ScrollingBackground("star1",new Rectangle(0,0,900,675),2);
-            bg2 = new ScrollingBackground("star2", new Rectangle(0, -675,900,675),2);
+            bg1 = new ScrollingBackground("star1",new Rectangle(0,0,900,675), 1);
+            bg2 = new ScrollingBackground("star2", new Rectangle(0, -675,900,675), 1);
+
+            Globals.leftBound = new Rectangle(18, 0, 1, Globals.screenHeight);
+            Globals.rightBound = new Rectangle(Globals.screenWidth + 22, 0, 1, Globals.screenHeight);
+            Globals.topBound = new Rectangle(0, 10, Globals.screenWidth, 1);
+            Globals.bottomBound = new Rectangle(0, Globals.screenHeight + 22, Globals.screenWidth, 1);
         }
-        public virtual void Update(GameTime gameTime)
+
+        public void Update(GameTime gameTime)
         {
             AdjustBackground();
 
@@ -42,7 +48,7 @@ namespace JetWars
                 bg2.backgroundBox.Y = bg1.backgroundBox.Y - bg1.backgroundBox.Height;
         }
 
-        public virtual void Draw(Vector2 OFFSET)
+        public void Draw(Vector2 OFFSET)
         {
             bg1.Draw(Vector2.Zero);
             bg2.Draw(Vector2.Zero);
