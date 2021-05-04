@@ -6,10 +6,13 @@ using System.Xml.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
+using JetWars.Source.Gameplay.Models;
+
 namespace JetWars
 {
     public class GameGlobals
     {
-        public static Globals.PassObject PassBullet;
+        public static PlayerJet playerJet;
+        public static Globals.PassObject PassBullet, PassEnemyJet;
     }
 }

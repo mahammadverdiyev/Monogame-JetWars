@@ -13,7 +13,7 @@ namespace JetWars.Source.Gameplay.Models
 {
     public class Bullet2D : Basic2D
     {
-        public bool done;
+        public bool outOfArena;
 
         public float speed;
 
@@ -21,18 +21,16 @@ namespace JetWars.Source.Gameplay.Models
 
         public Jet owner;
 
-        public METimer timer;
 
         public Bullet2D(string path, Vector2 position, Vector2 dimension, Jet owner,Vector2 target) 
             : base(path, position, dimension)
         {
-            done = false;
+            outOfArena = false;
             speed = 15.0f;
             this.owner = owner;
 
             direction = Physics.GetDirection(owner.position, target);
             
-            timer = new METimer(1500);
         }
 
         public override void Update()
@@ -47,22 +45,27 @@ namespace JetWars.Source.Gameplay.Models
 
             position += direction * speed * delta * speedForce;
 
-            timer.UpdateTimer();
-
-            if (timer.Test())
+            if(Physics.IsOutOfArena(position))
             {
-                done = true;
+                outOfArena = true;
             }
-
             if(HitSomething(jets))
             {
-                // implement kill, reduce healrth these kind of things
-                done = true;
+                // implement kill, reducing health & these kind of things
+                outOfArena = true;
             }
         }
 
         public virtual bool HitSomething(List<Jet> jets)
         {
+            for(int i = 0; i < jets.Count; i++)
+            {
+                if(Physics.GetDistance(position,jets[i].position) < jets[i].hitDistance)
+                {
+                    jets[i].GetHit();
+                    return true;
+                }
+            }
             return false;
         }
 

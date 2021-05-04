@@ -42,12 +42,33 @@ namespace JetWars.Source.Engine
 
             return direction;
         }
+
+        public static Vector2 RadialMovement(Vector2 target, Vector2 source, float speed)
+        {
+            float distance = GetDistance(source, target);
+
+            if (distance <= speed)
+                return target - source;
+            else
+                return (target - source) * speed / distance;
+        }
+
+
         public static bool TouchesOneOfBounds(Rectangle rect)
         {
             return Globals.leftBound.Intersects(rect) ||
                    Globals.rightBound.Intersects(rect) ||
                    Globals.topBound.Intersects(rect) ||
                    Globals.bottomBound.Intersects(rect);
+        }
+
+        public static bool IsOutOfArena(Vector2 position)
+        {
+            if (position.X < 0 || position.X > Globals.screenWidth ||
+                position.Y < 0 || position.Y > Globals.screenHeight)
+                return true;
+         
+            return false;
         }
     }
 }

@@ -10,14 +10,16 @@ namespace JetWars
 {
     public abstract class Basic2D
     {
-        public float rotation;
+        protected float rotation;
         public Vector2 position, dimension;
         protected Texture2D model;
-     
+        protected Rectangle modelBox;
+
         public Basic2D(string PATH,Vector2 POSITION, Vector2 DIMENSION)
         {
             position = POSITION;
             dimension = DIMENSION;
+            modelBox = new Rectangle((int)position.X, (int)position.Y, (int)dimension.X, (int)dimension.Y);
             model = Globals.content.Load<Texture2D>(PATH);
         }
         public abstract void Update();

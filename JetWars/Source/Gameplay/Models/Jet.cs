@@ -16,20 +16,23 @@ namespace JetWars
 {
     public abstract class Jet : Basic2D
     {
-        public float speed;
+        public bool destroyed;
+        public float speed, hitDistance;
         protected Vector2 velocity;
         protected Vector2 acceleration;
 
         public Jet(string PATH, Vector2 POSITION, Vector2 DIMENSION) : base(PATH,POSITION,DIMENSION)
         {
             speed = 5.0f;
+            hitDistance = 35f;
+            destroyed = false;
             velocity = new Vector2(0, 0);
             acceleration = Vector2.Zero;
         }
 
-        public virtual void RotateJet()
+        public virtual void GetHit()
         {
-
+            destroyed = true;
         }
 
         public override void Draw(Vector2 OFFSET)
