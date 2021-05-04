@@ -31,8 +31,6 @@ namespace JetWars
             playerJet = new PlayerJet();
             GameGlobals.playerJet = playerJet;
 
-            enemies.Add(playerJet);
-
             bg1 = new ScrollingBackground("star1",new Rectangle(0,0,900,675), 1);
             bg2 = new ScrollingBackground("star2", new Rectangle(0, -675,900,675), 1);
             GameGlobals.PassBullet = AddBullet;

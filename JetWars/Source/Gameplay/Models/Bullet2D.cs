@@ -58,14 +58,29 @@ namespace JetWars.Source.Gameplay.Models
 
         public virtual bool HitSomething(List<Jet> jets)
         {
-            for(int i = 0; i < jets.Count; i++)
+            if(owner.GetType() == typeof(PlayerJet))
             {
-                if(Physics.GetDistance(position,jets[i].position) < jets[i].hitDistance)
+                for (int i = 0; i < jets.Count; i++)
                 {
-                    jets[i].GetHit();
+                    if (Physics.GetDistance(position, jets[i].position) < jets[i].hitDistance)
+                    {
+                        Debug.WriteLine("HIT");
+                        jets[i].GetHit();
+                        return true;
+                    }
+                }
+            }
+            else
+            {
+                PlayerJet jet = GameGlobals.playerJet;
+
+                if(Physics.GetDistance(position,jet.position) < jet.hitDistance)
+                {
+                    Debug.WriteLine("PLAYER DEAD");
                     return true;
                 }
             }
+
             return false;
         }
 

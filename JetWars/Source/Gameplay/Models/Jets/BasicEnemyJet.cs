@@ -26,7 +26,7 @@ namespace JetWars.Source.Gameplay.Models.Jets
             shootTimer.UpdateTimer();
             position += Physics.RadialMovement(GameGlobals.playerJet.position, position, speed);
             Rotate();
-            //Shoot();
+            Shoot();
         }
         public override void Draw(Vector2 OFFSET)
         {
