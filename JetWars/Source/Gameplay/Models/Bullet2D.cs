@@ -30,7 +30,6 @@ namespace JetWars.Source.Gameplay.Models
             this.owner = owner;
 
             direction = Physics.GetDirection(owner.position, target);
-            
         }
 
         public override void Update()
@@ -49,9 +48,8 @@ namespace JetWars.Source.Gameplay.Models
             {
                 outOfArena = true;
             }
-            if(HitSomething(jets))
+            else if(HitSomething(jets))
             {
-                // implement kill, reducing health & these kind of things
                 outOfArena = true;
             }
         }

@@ -13,7 +13,7 @@ namespace JetWars.Source.Gameplay.Models.Jets
         METimer shootTimer;
         public BasicEnemyJet(Vector2 position) : base("basic-enemy",position)
         {
-            shootTimer = new METimer(1000);
+            shootTimer = new METimer(500);
         }
 
         public override void Update()
@@ -24,7 +24,10 @@ namespace JetWars.Source.Gameplay.Models.Jets
         public override void BehaveArtificially()
         {
             shootTimer.UpdateTimer();
-            position += Physics.RadialMovement(GameGlobals.playerJet.position, position, speed);
+            if(position.Y < Globals.screenHeight / 2)
+            {
+                position += Physics.RadialMovement(GameGlobals.playerJet.position, position, speed);
+            }
             Rotate();
             Shoot();
         }
