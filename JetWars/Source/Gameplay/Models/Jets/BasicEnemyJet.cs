@@ -11,9 +11,11 @@ namespace JetWars.Source.Gameplay.Models.Jets
     {
 
         METimer shootTimer;
-        public BasicEnemyJet(Vector2 position) : base("basic-enemy",position)
+        Random rand;
+        public BasicEnemyJet(Vector2 position,float speed) : base("basic-enemy",position,speed)
         {
-            shootTimer = new METimer(500);
+            shootTimer = new METimer(1000);
+            rand = new Random();
         }
 
         public override void Update()
@@ -45,8 +47,13 @@ namespace JetWars.Source.Gameplay.Models.Jets
         {
             if(shootTimer.Test())
             {
+                int deflection = rand.Next(0, 100);
+
+                if (rand.Next(0, 2) == 0)
+                    deflection = -deflection;
+
                 Bullet2D bullet =
-new StandardBullet(new Vector2(position.X, position.Y), this, new Vector2(GameGlobals.playerJet.position.X, GameGlobals.playerJet.position.Y), rotation);
+new StandardBullet(new Vector2(position.X, position.Y), this, new Vector2(GameGlobals.playerJet.position.X + deflection, GameGlobals.playerJet.position.Y), rotation);
 
                 GameGlobals.PassBullet(bullet);
                 shootTimer.ResetToZero();

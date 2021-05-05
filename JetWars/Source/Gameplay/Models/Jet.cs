@@ -21,9 +21,9 @@ namespace JetWars
         protected Vector2 velocity;
         protected Vector2 acceleration;
 
-        public Jet(string PATH, Vector2 POSITION, Vector2 DIMENSION) : base(PATH,POSITION,DIMENSION)
+        public Jet(string PATH, Vector2 POSITION, Vector2 DIMENSION,float speed) : base(PATH,POSITION,DIMENSION)
         {
-            speed = 5.0f;
+            this.speed = speed;
             hitDistance = 35f;
             destroyed = false;
             velocity = new Vector2(0, 0);

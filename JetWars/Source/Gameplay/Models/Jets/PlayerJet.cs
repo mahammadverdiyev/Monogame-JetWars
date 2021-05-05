@@ -9,7 +9,7 @@ namespace JetWars.Source.Gameplay.Models
 {
     public class PlayerJet : Jet, IRotatable
     {
-        public PlayerJet() : base("jet", new Vector2(300, 300), new Vector2(60, 60))
+        public PlayerJet() : base("jet", new Vector2(300, 300), new Vector2(60, 60),5.0f)
         {
         }
 

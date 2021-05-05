@@ -18,26 +18,35 @@ namespace JetWars.Source.Gameplay
     public class SpawnLocation : Basic2D
     {
         public METimer spawnTimer;
-        public SpawnLocation(string path, Vector2 position, Vector2 dimension)
+        public int maxEnemyAmount;
+        public int enemyCounter;
+        public SpawnLocation(string path, Vector2 position, Vector2 dimension,int maxEnemyAmount)
             :base(path,position,dimension)
         {
+            enemyCounter = 0;
+            this.maxEnemyAmount = maxEnemyAmount < 0 ? int.MaxValue : maxEnemyAmount;
             spawnTimer = new METimer(2000);
         }
 
         public override void Update()
         {
-            spawnTimer.UpdateTimer();
-            
-            if(spawnTimer.Test())
+            if(enemyCounter < maxEnemyAmount)
             {
-                SpawnEnemy();
-                spawnTimer.ResetToZero();
+                spawnTimer.UpdateTimer();
+
+                if (spawnTimer.Test())
+                {
+                    enemyCounter++;
+                    SpawnEnemy();
+                    spawnTimer.ResetToZero();
+                }
             }
+
         }
 
         public virtual void SpawnEnemy()
         {
-            GameGlobals.PassEnemyJet(new BasicEnemyJet(new Vector2(position.X, position.Y)));
+            GameGlobals.PassEnemyJet(new BasicEnemyJet(new Vector2(position.X, position.Y),2.0f));
         }
     }
 }

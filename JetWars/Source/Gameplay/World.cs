@@ -36,13 +36,13 @@ namespace JetWars
             GameGlobals.PassBullet = AddBullet;
             GameGlobals.PassEnemyJet = AddEnemyJet;
             offset = Vector2.Zero;
-            spawnLocations.Add(new SpawnLocation("circle", new Vector2(50,50), new Vector2(35,35)));
+            spawnLocations.Add(new SpawnLocation("circle", new Vector2(50,50), new Vector2(35,35),1));
            
-            spawnLocations.Add(new SpawnLocation("circle", new Vector2(Globals.screenWidth / 2, 50), new Vector2(35, 35)));
-            spawnLocations[spawnLocations.Count - 1].spawnTimer.AddToTimer(500);
+            //spawnLocations.Add(new SpawnLocation("circle", new Vector2(Globals.screenWidth / 2, 50), new Vector2(35, 35)));
+            //spawnLocations[spawnLocations.Count - 1].spawnTimer.AddToTimer(500);
 
-            spawnLocations.Add(new SpawnLocation("circle", new Vector2(Globals.screenWidth - 50, 50), new Vector2(35, 35)));
-            spawnLocations[spawnLocations.Count - 1].spawnTimer.AddToTimer(1000);
+            //spawnLocations.Add(new SpawnLocation("circle", new Vector2(Globals.screenWidth - 50, 50), new Vector2(35, 35)));
+            //spawnLocations[spawnLocations.Count - 1].spawnTimer.AddToTimer(1000);
 
         }
 

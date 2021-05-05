@@ -9,7 +9,7 @@ namespace JetWars.Source.Gameplay.Models.Jets
 {
     public abstract class EnemyJet : Jet
     {
-        public EnemyJet(string path,Vector2 position) : base(path, position, new Vector2(60,60))
+        public EnemyJet(string path,Vector2 position,float speed) : base(path, position, new Vector2(60,60),speed)
         {
         }
 
