@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using JetWars.Source;
 #endregion
 
 namespace JetWars
@@ -20,7 +21,8 @@ namespace JetWars
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        private World world;
+        GamePlay gamePlay;
+
         public Main()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -43,7 +45,7 @@ namespace JetWars
         protected override void LoadContent()
         {
             InitializeGlobals();
-            world = new World();
+            gamePlay = new GamePlay();
         }
 
         private void InitializeGlobals()
@@ -69,7 +71,7 @@ namespace JetWars
             Globals.keyboard.Update();
             Globals.mouse.Update();
 
-            world.Update();
+            gamePlay.Update();
 
             Globals.keyboard.UpdateOld();
             Globals.mouse.UpdateOld();
@@ -83,7 +85,7 @@ namespace JetWars
 
             Globals.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
-            world.Draw(Vector2.Zero);
+            gamePlay.Draw();
 
 
             Globals.spriteBatch.End();

@@ -30,8 +30,12 @@ namespace JetWars
         public List<Jet> enemies = new List<Jet>();
         public List<SpawnLocation> spawnLocations = new List<SpawnLocation>();
 
-        public World()
+        public Globals.PassObject ResetWorld;
+
+        public World(Globals.PassObject resetWorld)
         {
+            ResetWorld = resetWorld;
+
             playerJet = new PlayerJet();
             GameGlobals.playerJet = playerJet;
             destroyedJetCount = 0;
@@ -54,15 +58,25 @@ namespace JetWars
 
         public void Update()
         {
-            AdjustBackground();
+            if(!playerJet.destroyed)
+            {
+                AdjustBackground();
 
-            bg1.Update();
-            bg2.Update();
+                bg1.Update();
+                bg2.Update();
 
-            UpdateSpawnLocations();
-            UpdateBullets();
-            UpdateEnemyJets();
-            playerJet.Update();
+                UpdateSpawnLocations();
+                UpdateBullets();
+                UpdateEnemyJets();
+                playerJet.Update();
+            }
+            else
+            {
+                if(Globals.keyboard.GetPress("Enter"))
+                {
+                    ResetWorld(null);
+                }
+            }
             ui.Update(this);
         }
 
@@ -130,6 +144,7 @@ namespace JetWars
 
             spawnLocations.ForEach(location => location.Draw(offset));
             enemies.ForEach(enemy => enemy.Draw(offset));
+
             ui.Draw(this);
         }
     }

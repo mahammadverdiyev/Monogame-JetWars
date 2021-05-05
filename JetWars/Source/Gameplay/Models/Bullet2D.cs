@@ -32,11 +32,6 @@ namespace JetWars.Source.Gameplay.Models
             direction = Physics.GetDirection(owner.position, target);
         }
 
-        public override void Update()
-        {
-            // leave empty
-        }
-
         public virtual void Update(Vector2 offset, List<Jet> jets)
         {
             float speedForce = 50f;
@@ -56,14 +51,14 @@ namespace JetWars.Source.Gameplay.Models
 
         public virtual bool HitSomething(List<Jet> jets)
         {
-            if(owner.GetType() == typeof(PlayerJet))
+            if (IsOwnerPlayerJet())
             {
                 for (int i = 0; i < jets.Count; i++)
                 {
-                    if (Physics.GetDistance(position, jets[i].position) < jets[i].hitDistance)
+                    if (HitsJet(jets[i]))
                     {
                         Debug.WriteLine("HIT");
-                        jets[i].GetHit();
+                        jets[i].GetHit(1);
                         return true;
                     }
                 }
@@ -72,15 +67,25 @@ namespace JetWars.Source.Gameplay.Models
             {
                 PlayerJet jet = GameGlobals.playerJet;
 
-                if(Physics.GetDistance(position,jet.position) < jet.hitDistance)
+                if (HitsJet(jet))
                 {
-                    Debug.WriteLine("PLAYER DEAD");
+                    jet.GetHit(1);
+                    if(jet.destroyed)
+                        Debug.WriteLine("PLAYER DEAD");
                     return true;
                 }
             }
 
             return false;
         }
+
+        private bool IsOwnerPlayerJet()
+        {
+            return owner.GetType() == typeof(PlayerJet);
+        }
+
+        private bool HitsJet(Jet jet) =>
+            Physics.GetDistance(position, jet.position) < jet.hitDistance;
 
         public override void Draw(Vector2 OFFSET)
         {

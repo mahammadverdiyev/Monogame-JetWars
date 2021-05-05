@@ -20,6 +20,7 @@ namespace JetWars.Source.Gameplay
         public METimer spawnTimer;
         public int maxEnemyAmount;
         public int enemyCounter;
+
         public SpawnLocation(string path, Vector2 position, Vector2 dimension,int maxEnemyAmount)
             :base(path,position,dimension)
         {
