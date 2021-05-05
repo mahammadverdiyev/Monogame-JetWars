@@ -17,15 +17,19 @@ namespace JetWars
     public abstract class Jet : Basic2D
     {
         public bool destroyed;
+        protected bool isHit;
+        protected bool canShoot;
+
         public float speed, hitDistance, health, maxHealth;
         protected Vector2 velocity;
         public METimer hitTimer;
         protected Color jetColor;
-        protected bool isHit;
+        protected METimer explosionTimer;
         public Jet(string PATH, Vector2 POSITION, Vector2 DIMENSION,float speed,
                         float _maxHealth) : base(PATH,POSITION,DIMENSION)
         {
             isHit = false;
+            canShoot = true;
             this.speed = speed;
             hitDistance = 35f;
 
@@ -38,11 +42,45 @@ namespace JetWars
             velocity = new Vector2(0, 0);
         }
 
+        public override void Update()
+        {
+            hitTimer.UpdateTimer();
+            if(explosionTimer != null)
+            {
+                explosionTimer.UpdateTimer();
+                if (explosionTimer.Test())
+                {
+                    destroyed = true;
+                }
+            }
+
+            if (hitTimer.Test() && isHit)
+            {
+                isHit = false;
+                jetColor = Color.White;
+                dimension.X -= 5;
+                dimension.Y -= 5;
+            }
+        }
+
         public virtual void GetHit(float damage)
         {
-            //health -= damage;
-            if(health <= 0)
-                destroyed = true;
+            if (hitTimer.Test())
+            {
+                isHit = true;
+                jetColor = Color.OrangeRed;
+                dimension.X += 5;
+                dimension.Y += 5;
+                hitTimer.ResetToZero();
+            }
+            health -= damage;
+            if (health <= 0)
+            {
+                speed = 0f;
+                canShoot = false;
+                model = Globals.content.Load<Texture2D>("explosion");
+                explosionTimer = new METimer(300);
+            }
         }
 
         public override void Draw(Vector2 OFFSET)

@@ -16,6 +16,7 @@ namespace JetWars.Source.Gameplay.Models.Jets
 
         public override void Update()
         {
+            base.Update();
             BehaveArtificially();
         }
 

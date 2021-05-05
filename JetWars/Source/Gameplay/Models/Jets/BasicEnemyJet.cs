@@ -21,30 +21,11 @@ namespace JetWars.Source.Gameplay.Models.Jets
 
         public override void Update()
         {
-            hitTimer.UpdateTimer();
-            if (hitTimer.Test() && isHit)
-            {
-                isHit = false;
-                jetColor = Color.White;
-                dimension.X -= 5;
-                dimension.Y -= 5;
-            }
-
             base.Update();
         }
 
         public override void GetHit(float damage)
         {
-            if(hitTimer.Test())
-            {
-                isHit = true;
-                jetColor = Color.OrangeRed;
-                dimension.X += 5;
-                dimension.Y += 5;
-                hitTimer.ResetToZero();
-            }
-
-
             base.GetHit(damage);
         }
 
@@ -55,8 +36,12 @@ namespace JetWars.Source.Gameplay.Models.Jets
             {
                 position += Physics.RadialMovement(GameGlobals.playerJet.position, position, speed);
             }
-            Rotate();
-            Shoot();
+
+            if(canShoot)
+            {
+                Rotate();
+                Shoot();
+            }
         }
         public override void Draw(Vector2 OFFSET)
         {

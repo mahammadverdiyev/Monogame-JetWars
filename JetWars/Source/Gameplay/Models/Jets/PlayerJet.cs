@@ -3,18 +3,23 @@ using JetWars.Source.Engine;
 using JetWars.Source.Gameplay.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System;
 #endregion
 
 namespace JetWars.Source.Gameplay.Models
 {
     public class PlayerJet : Jet, IRotatable
     {
+
+        Random rand = new Random();
+
         public PlayerJet() : base("jet", new Vector2(300, 300), new Vector2(60, 60),3.0f,20.0f)
         {
         }
 
         public override void Update()
         {
+            base.Update();
             MoveJet();
             Rotate();
             if (Globals.mouse.LeftClick())
@@ -25,8 +30,13 @@ namespace JetWars.Source.Gameplay.Models
 
         private void Shoot()
         {
+            int deflection = rand.Next(0, (int)Physics.GetDistance(position, Globals.mouse.newMousePos) / 6);
+
+            if (rand.Next(0, 2) == 0)
+                deflection = -deflection;
+
             Bullet2D bullet =
-                new StandardBullet(new Vector2(position.X, position.Y), this, new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y), rotation,15.0f);
+                new StandardBullet(new Vector2(position.X, position.Y), this, new Vector2(Globals.mouse.newMousePos.X + deflection, Globals.mouse.newMousePos.Y), rotation,15.0f);
 
             GameGlobals.PassBullet(bullet);
         }
