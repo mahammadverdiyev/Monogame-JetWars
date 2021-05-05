@@ -6,6 +6,7 @@ using JetWars.Source;
 using JetWars.Source.Gameplay;
 using JetWars.Source.Gameplay.Models;
 using JetWars.Source.Gameplay.Models.Jets;
+using JetWars.Source.Gameplay.Spawners;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -45,13 +46,9 @@ namespace JetWars
             GameGlobals.PassBullet = AddBullet;
             GameGlobals.PassEnemyJet = AddEnemyJet;
             offset = Vector2.Zero;
-            spawners.Add(new ModelSpawner("circle", new Vector2(50,50), new Vector2(35,35),10));
+            //spawners.Add(new BasicEnemyJetSpawner(new Vector2(50,50), new Vector2(35,35),10));
 
-            //spawnLocations.Add(new SpawnLocation("circle", new Vector2(Globals.screenWidth / 2, 50), new Vector2(35, 35)));
-            //spawnLocations[spawnLocations.Count - 1].spawnTimer.AddToTimer(500);
-
-            //spawnLocations.Add(new SpawnLocation("circle", new Vector2(Globals.screenWidth - 50, 50), new Vector2(35, 35)));
-            //spawnLocations[spawnLocations.Count - 1].spawnTimer.AddToTimer(1000);
+            spawners.Add(new KamikazeSpawner(new Vector2(50, 50), new Vector2(35, 35), 500));
 
             ui = new UserInterface();
         }
@@ -65,7 +62,7 @@ namespace JetWars
                 bg1.Update();
                 bg2.Update();
 
-                UpdateSpawnLocations();
+                UpdateSpawners();
                 UpdateBullets();
                 UpdateEnemyJets();
                 playerJet.Update();
@@ -80,7 +77,7 @@ namespace JetWars
             ui.Update(this);
         }
 
-        private void UpdateSpawnLocations()
+        private void UpdateSpawners()
         {
             for (int i = 0; i < spawners.Count; i++)
             {

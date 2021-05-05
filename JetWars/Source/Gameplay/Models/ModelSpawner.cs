@@ -15,29 +15,29 @@ using Microsoft.Xna.Framework.Media;
 
 namespace JetWars.Source.Gameplay
 {
-    public class ModelSpawner : Basic2D
+    public abstract class ModelSpawner : Basic2D
     {
         public METimer spawnTimer;
-        public int maxEnemyAmount;
-        public int enemyCounter;
+        public int maxModelCount;
+        public int modelCounter;
 
-        public ModelSpawner(string path, Vector2 position, Vector2 dimension,int maxEnemyAmount)
+        public ModelSpawner(string path, Vector2 position, Vector2 dimension,int maxModelCount)
             :base(path,position,dimension)
         {
-            enemyCounter = 0;
-            this.maxEnemyAmount = maxEnemyAmount < 0 ? int.MaxValue : maxEnemyAmount;
+            modelCounter = 0;
+            this.maxModelCount = maxModelCount < 0 ? int.MaxValue : maxModelCount;
             spawnTimer = new METimer(2000);
         }
 
         public override void Update()
         {
-            if(enemyCounter < maxEnemyAmount)
+            if(modelCounter < maxModelCount)
             {
                 spawnTimer.UpdateTimer();
 
                 if (spawnTimer.Test())
                 {
-                    enemyCounter++;
+                    modelCounter++;
                     SpawnModel();
                     spawnTimer.ResetToZero();
                 }
@@ -45,10 +45,6 @@ namespace JetWars.Source.Gameplay
 
         }
 
-        public virtual void SpawnModel()
-        {
-            GameGlobals.PassEnemyJet(new BasicEnemyJet(new Vector2(position.X, position.Y),2.0f));
-            GameGlobals.PassEnemyJet(new Kamikaze(new Vector2(position.X, position.Y), 10, GameGlobals.playerJet));
-        }
+        public abstract void SpawnModel();
     }
 }
