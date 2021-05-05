@@ -15,13 +15,13 @@ using Microsoft.Xna.Framework.Media;
 
 namespace JetWars.Source.Gameplay
 {
-    public class SpawnLocation : Basic2D
+    public class ModelSpawner : Basic2D
     {
         public METimer spawnTimer;
         public int maxEnemyAmount;
         public int enemyCounter;
 
-        public SpawnLocation(string path, Vector2 position, Vector2 dimension,int maxEnemyAmount)
+        public ModelSpawner(string path, Vector2 position, Vector2 dimension,int maxEnemyAmount)
             :base(path,position,dimension)
         {
             enemyCounter = 0;
@@ -38,14 +38,14 @@ namespace JetWars.Source.Gameplay
                 if (spawnTimer.Test())
                 {
                     enemyCounter++;
-                    SpawnEnemy();
+                    SpawnModel();
                     spawnTimer.ResetToZero();
                 }
             }
 
         }
 
-        public virtual void SpawnEnemy()
+        public virtual void SpawnModel()
         {
             GameGlobals.PassEnemyJet(new BasicEnemyJet(new Vector2(position.X, position.Y),2.0f));
             GameGlobals.PassEnemyJet(new Kamikaze(new Vector2(position.X, position.Y), 10, GameGlobals.playerJet));

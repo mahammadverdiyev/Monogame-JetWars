@@ -28,7 +28,7 @@ namespace JetWars
 
         public List<Bullet2D> bullets = new List<Bullet2D>();
         public List<Jet> enemies = new List<Jet>();
-        public List<SpawnLocation> spawnLocations = new List<SpawnLocation>();
+        public List<ModelSpawner> spawners = new List<ModelSpawner>();
 
         public Globals.PassObject ResetWorld;
 
@@ -45,7 +45,7 @@ namespace JetWars
             GameGlobals.PassBullet = AddBullet;
             GameGlobals.PassEnemyJet = AddEnemyJet;
             offset = Vector2.Zero;
-            spawnLocations.Add(new SpawnLocation("circle", new Vector2(50,50), new Vector2(35,35),10));
+            spawners.Add(new ModelSpawner("circle", new Vector2(50,50), new Vector2(35,35),10));
 
             //spawnLocations.Add(new SpawnLocation("circle", new Vector2(Globals.screenWidth / 2, 50), new Vector2(35, 35)));
             //spawnLocations[spawnLocations.Count - 1].spawnTimer.AddToTimer(500);
@@ -82,9 +82,9 @@ namespace JetWars
 
         private void UpdateSpawnLocations()
         {
-            for (int i = 0; i < spawnLocations.Count; i++)
+            for (int i = 0; i < spawners.Count; i++)
             {
-                spawnLocations[i].Update();
+                spawners[i].Update();
             }
         }
 
@@ -142,7 +142,7 @@ namespace JetWars
             playerJet.Draw(OFFSET);
             bullets.ForEach(projectile => projectile.Draw(offset));
 
-            spawnLocations.ForEach(location => location.Draw(offset));
+            spawners.ForEach(location => location.Draw(offset));
             enemies.ForEach(enemy => enemy.Draw(offset));
 
             ui.Draw(this);
