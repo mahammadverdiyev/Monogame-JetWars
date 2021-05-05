@@ -17,6 +17,7 @@ namespace JetWars
     public abstract class Jet : Basic2D
     {
         public bool destroyed;
+
         protected bool isHit;
         protected bool canShoot;
 
@@ -65,7 +66,7 @@ namespace JetWars
 
         public virtual void GetHit(float damage)
         {
-            if (hitTimer.Test())
+            if (hitTimer.Test() && explosionTimer == null)
             {
                 isHit = true;
                 jetColor = Color.OrangeRed;
@@ -73,13 +74,15 @@ namespace JetWars
                 dimension.Y += 5;
                 hitTimer.ResetToZero();
             }
+            
             health -= damage;
-            if (health <= 0)
+
+            if (health <= 0 && explosionTimer == null)
             {
                 speed = 0f;
                 canShoot = false;
                 model = Globals.content.Load<Texture2D>("explosion");
-                explosionTimer = new METimer(300);
+                explosionTimer = new METimer(200);
             }
         }
 
