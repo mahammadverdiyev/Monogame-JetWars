@@ -48,6 +48,7 @@ namespace JetWars.Source.Gameplay
         public virtual void SpawnEnemy()
         {
             GameGlobals.PassEnemyJet(new BasicEnemyJet(new Vector2(position.X, position.Y),2.0f));
+            GameGlobals.PassEnemyJet(new Kamikaze(new Vector2(position.X, position.Y), 10, GameGlobals.playerJet));
         }
     }
 }
