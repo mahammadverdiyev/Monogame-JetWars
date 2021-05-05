@@ -25,6 +25,13 @@
 /processorParam:TextureFormat=Color
 /build:ammo.png
 
+#begin Arial.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Arial.spritefont
+
 #begin basic-enemy.png
 /importer:TextureImporter
 /processor:TextureProcessor

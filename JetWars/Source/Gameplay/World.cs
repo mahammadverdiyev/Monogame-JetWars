@@ -20,6 +20,10 @@ namespace JetWars
         public ScrollingBackground bg1;
         public ScrollingBackground bg2;
 
+        public int destroyedJetCount;
+
+        public UserInterface ui;
+            
         public Vector2 offset;
 
         public List<Bullet2D> bullets = new List<Bullet2D>();
@@ -30,6 +34,7 @@ namespace JetWars
         {
             playerJet = new PlayerJet();
             GameGlobals.playerJet = playerJet;
+            destroyedJetCount = 0;
 
             bg1 = new ScrollingBackground("star1",new Rectangle(0,0,900,675), 1);
             bg2 = new ScrollingBackground("star2", new Rectangle(0, -675,900,675), 1);
@@ -37,13 +42,14 @@ namespace JetWars
             GameGlobals.PassEnemyJet = AddEnemyJet;
             offset = Vector2.Zero;
             spawnLocations.Add(new SpawnLocation("circle", new Vector2(50,50), new Vector2(35,35),10));
-           
+
             //spawnLocations.Add(new SpawnLocation("circle", new Vector2(Globals.screenWidth / 2, 50), new Vector2(35, 35)));
             //spawnLocations[spawnLocations.Count - 1].spawnTimer.AddToTimer(500);
 
             //spawnLocations.Add(new SpawnLocation("circle", new Vector2(Globals.screenWidth - 50, 50), new Vector2(35, 35)));
             //spawnLocations[spawnLocations.Count - 1].spawnTimer.AddToTimer(1000);
 
+            ui = new UserInterface();
         }
 
         public void Update()
@@ -57,6 +63,7 @@ namespace JetWars
             UpdateBullets();
             UpdateEnemyJets();
             playerJet.Update();
+            ui.Update(this);
         }
 
         private void UpdateSpawnLocations()
@@ -88,6 +95,7 @@ namespace JetWars
                 enemies[i].Update();
                 if (enemies[i].destroyed)
                 {
+                    destroyedJetCount++;
                     enemies.RemoveAt(i);
                     i--;
                 }
@@ -122,6 +130,7 @@ namespace JetWars
 
             spawnLocations.ForEach(location => location.Draw(offset));
             enemies.ForEach(enemy => enemy.Draw(offset));
+            ui.Draw(this);
         }
     }
 }

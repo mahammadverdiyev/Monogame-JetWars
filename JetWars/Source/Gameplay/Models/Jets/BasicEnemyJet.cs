@@ -26,7 +26,7 @@ namespace JetWars.Source.Gameplay.Models.Jets
         public override void BehaveArtificially()
         {
             shootTimer.UpdateTimer();
-            if(position.Y < Globals.screenHeight / 2)
+            if(position.Y < Globals.screenHeight / 4)
             {
                 position += Physics.RadialMovement(GameGlobals.playerJet.position, position, speed);
             }
