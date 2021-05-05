@@ -48,7 +48,7 @@ namespace JetWars
             offset = Vector2.Zero;
             //spawners.Add(new BasicEnemyJetSpawner(new Vector2(50,50), new Vector2(35,35),10));
 
-            spawners.Add(new KamikazeSpawner(new Vector2(50, 50), new Vector2(35, 35), 500));
+            spawners.Add(new KamikazeSpawner(new Vector2(50, 50), new Vector2(35, 35), 3));
 
             ui = new UserInterface();
         }
@@ -82,6 +82,10 @@ namespace JetWars
             for (int i = 0; i < spawners.Count; i++)
             {
                 spawners[i].Update();
+                if(spawners[i].finished)
+                {
+                    spawners.RemoveAt(i);
+                }
             }
         }
 
