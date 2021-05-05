@@ -9,7 +9,7 @@ namespace JetWars.Source.Gameplay.Models
 {
     public class PlayerJet : Jet, IRotatable
     {
-        public PlayerJet() : base("jet", new Vector2(300, 300), new Vector2(60, 60),5.0f)
+        public PlayerJet() : base("jet", new Vector2(300, 300), new Vector2(60, 60),3.0f)
         {
             health = 20f;
             maxHealth = health;
@@ -60,9 +60,9 @@ namespace JetWars.Source.Gameplay.Models
                 horizontalInput = 1f;
             }
 
-            float movementForce = 600f;
+            float movementForce = 100f;
             float delta = (float)Globals.gameTime.ElapsedGameTime.TotalSeconds;
-            movement = new Vector2(horizontalInput, verticalInput) * delta * movementForce;
+            movement = new Vector2(horizontalInput, verticalInput) * delta * movementForce * speed;
             position += movement;
 
             Rectangle rect = new Rectangle((int)position.X, (int)position.Y, (int)dimension.X, (int)dimension.Y);
