@@ -26,6 +26,7 @@ namespace JetWars
         }
         public virtual void Update() { }
 
+
         public virtual void Draw(Vector2 OFFSET)
         {
             if(model != null)

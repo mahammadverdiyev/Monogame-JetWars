@@ -27,10 +27,6 @@ namespace JetWars.Source
             ResetWorld(null);
         }
 
-        public void test(string s)
-        {
-
-        }
         public virtual void Update()
         {
             if(gameState == 0)

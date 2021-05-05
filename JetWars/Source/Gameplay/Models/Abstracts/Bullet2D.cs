@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace JetWars.Source.Gameplay.Models
 {
-    public class Bullet2D : Basic2D
+    public abstract class Bullet2D : Basic2D
     {
         public bool outOfArena;
 
@@ -21,14 +21,17 @@ namespace JetWars.Source.Gameplay.Models
 
         public Jet owner;
 
+        public float damage;
 
-        public Bullet2D(string path, Vector2 position, Vector2 dimension, Jet owner,Vector2 target,float speed) 
+        public Bullet2D(string path, Vector2 position, Vector2 dimension, Jet owner,Vector2 target,float speed,
+            float damage) 
             : base(path, position, dimension)
         {
+            this.damage = damage;
             outOfArena = false;
             this.speed = speed;
             this.owner = owner;
-
+            
             direction = Physics.GetDirection(owner.position, target);
         }
 
@@ -58,7 +61,7 @@ namespace JetWars.Source.Gameplay.Models
                     if (HitsJet(jets[i]))
                     {
                         Debug.WriteLine("HIT");
-                        jets[i].GetHit(1);
+                        jets[i].GetHit(damage);
                         return true;
                     }
                 }
@@ -69,9 +72,7 @@ namespace JetWars.Source.Gameplay.Models
 
                 if (HitsJet(jet))
                 {
-                    jet.GetHit(1);
-                    if(jet.destroyed)
-                        Debug.WriteLine("PLAYER DEAD");
+                    jet.GetHit(damage);
                     return true;
                 }
             }

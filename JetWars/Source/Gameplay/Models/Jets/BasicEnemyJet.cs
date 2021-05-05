@@ -12,7 +12,8 @@ namespace JetWars.Source.Gameplay.Models.Jets
 
         METimer shootTimer;
         Random rand;
-        public BasicEnemyJet(Vector2 position,float speed) : base("basic-enemy",position,speed)
+
+        public BasicEnemyJet(Vector2 position,float speed) : base("basic-enemy",position,speed,5.0f)
         {
             shootTimer = new METimer(1000);
             rand = new Random();
@@ -20,7 +21,31 @@ namespace JetWars.Source.Gameplay.Models.Jets
 
         public override void Update()
         {
+            hitTimer.UpdateTimer();
+            if (hitTimer.Test() && isHit)
+            {
+                isHit = false;
+                jetColor = Color.White;
+                dimension.X -= 5;
+                dimension.Y -= 5;
+            }
+
             base.Update();
+        }
+
+        public override void GetHit(float damage)
+        {
+            if(hitTimer.Test())
+            {
+                isHit = true;
+                jetColor = Color.OrangeRed;
+                dimension.X += 5;
+                dimension.Y += 5;
+                hitTimer.ResetToZero();
+            }
+
+
+            base.GetHit(damage);
         }
 
         public override void BehaveArtificially()

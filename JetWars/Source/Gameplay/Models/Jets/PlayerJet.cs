@@ -9,10 +9,8 @@ namespace JetWars.Source.Gameplay.Models
 {
     public class PlayerJet : Jet, IRotatable
     {
-        public PlayerJet() : base("jet", new Vector2(300, 300), new Vector2(60, 60),3.0f)
+        public PlayerJet() : base("jet", new Vector2(300, 300), new Vector2(60, 60),3.0f,20.0f)
         {
-            health = 20f;
-            maxHealth = health;
         }
 
         public override void Update()
