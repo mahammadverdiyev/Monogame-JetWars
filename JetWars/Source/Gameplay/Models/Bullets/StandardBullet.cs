@@ -11,8 +11,8 @@ namespace JetWars.Source.Gameplay.Models
 {
     public class StandardBullet : Bullet2D
     {
-        public StandardBullet(Vector2 position, Jet owner,Vector2 target, float rotation) 
-            : base("ammo", position, new Vector2(20,20),owner,target)
+        public StandardBullet(Vector2 position, Jet owner,Vector2 target, float rotation,float speed) 
+            : base("ammo", position, new Vector2(20,20),owner,target,speed)
         {
             this.rotation = rotation;
         }

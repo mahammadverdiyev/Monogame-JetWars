@@ -26,7 +26,7 @@ namespace JetWars.Source.Gameplay.Models
         private void Shoot()
         {
             Bullet2D bullet =
-                new StandardBullet(new Vector2(position.X, position.Y), this, new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y), rotation);
+                new StandardBullet(new Vector2(position.X, position.Y), this, new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y), rotation,15.0f);
 
             GameGlobals.PassBullet(bullet);
         }

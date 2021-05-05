@@ -47,13 +47,15 @@ namespace JetWars.Source.Gameplay.Models.Jets
         {
             if(shootTimer.Test())
             {
-                int deflection = rand.Next(0, 100);
+                int deflection = rand.Next(0, (int)Physics.GetDistance(position,GameGlobals.playerJet.position) / 4);
 
                 if (rand.Next(0, 2) == 0)
                     deflection = -deflection;
 
                 Bullet2D bullet =
-new StandardBullet(new Vector2(position.X, position.Y), this, new Vector2(GameGlobals.playerJet.position.X + deflection, GameGlobals.playerJet.position.Y), rotation);
+                        new StandardBullet(new Vector2(position.X, position.Y), 
+                        this, new Vector2(GameGlobals.playerJet.position.X + deflection, 
+                        GameGlobals.playerJet.position.Y), rotation,8.0f);
 
                 GameGlobals.PassBullet(bullet);
                 shootTimer.ResetToZero();

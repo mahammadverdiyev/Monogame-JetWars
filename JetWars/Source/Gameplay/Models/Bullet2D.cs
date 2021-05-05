@@ -22,11 +22,11 @@ namespace JetWars.Source.Gameplay.Models
         public Jet owner;
 
 
-        public Bullet2D(string path, Vector2 position, Vector2 dimension, Jet owner,Vector2 target) 
+        public Bullet2D(string path, Vector2 position, Vector2 dimension, Jet owner,Vector2 target,float speed) 
             : base(path, position, dimension)
         {
             outOfArena = false;
-            speed = 15.0f;
+            this.speed = speed;
             this.owner = owner;
 
             direction = Physics.GetDirection(owner.position, target);
