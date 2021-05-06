@@ -30,7 +30,7 @@ namespace JetWars
         public List<Bullet2D> bullets = new List<Bullet2D>();
         public List<Jet> enemies = new List<Jet>();
         public List<ModelSpawner> spawners = new List<ModelSpawner>();
-
+        
         public Globals.PassObject ResetWorld;
 
         public World(Globals.PassObject resetWorld)

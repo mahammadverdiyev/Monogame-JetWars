@@ -11,19 +11,37 @@ namespace JetWars.Source.Gameplay.Models.Jets
 {
     public class AdvancedEnemyJet : EnemyJet, IRotatable
     {
-        private bool movesLeft = false, movesRight = true;
+        private bool movesLeft, movesRight;
         private METimer moveTimer;
-
+        int left, right;
         public AdvancedEnemyJet(Vector2 position,float speed)
         :base("advanced-enemy",position,speed,10f)
         {
+            right = (int)(Globals.screenWidth - position.X + dimension.X);
+            left = (int)position.X;
             shootTimer = new METimer(500);
-            moveTimer = new METimer(1500);
+            int moveTimerInterval;
+
+            if(rand.Next(0,2) == 1)
+            {
+                movesRight = true;
+                movesLeft = false;
+                moveTimerInterval = (int)(right / speed) * 15;
+            }
+            else
+            {
+                movesRight = false;
+                movesLeft = true;
+                moveTimerInterval = (int)(left / speed) * 15;
+            }
+            moveTimer = new METimer(moveTimerInterval);
         }
 
 
         public override void Update()
         {
+            left = (int)position.X;
+            right = (int)(Globals.screenWidth - position.X + dimension.X);
             base.Update();
         }
         public override void BehaveArtificially()
@@ -38,12 +56,18 @@ namespace JetWars.Source.Gameplay.Models.Jets
 
             if(moveTimer.Test())
             {
-                moveTimer.ResetToZero();
+                Debug.WriteLine("TEST");
                 movesLeft = !movesLeft;
                 movesRight = !movesRight;
+                int time;
+                if (movesRight)
+                    time = (int)(right / speed) * 15;
+                else
+                    time = (int)(left / speed) * 15;
+                moveTimer.Reset(time);
             }
 
-            if(movesLeft)
+            if (movesLeft)
             {
                 position.X -= speed;
             }

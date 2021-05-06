@@ -21,6 +21,7 @@ namespace JetWars.Source.Gameplay
         public int maxModelCount;
         public int modelCounter;
         public bool finished;
+
         public ModelSpawner(string path, Vector2 position, Vector2 dimension,int maxModelCount)
             :base(path,position,dimension)
         {
