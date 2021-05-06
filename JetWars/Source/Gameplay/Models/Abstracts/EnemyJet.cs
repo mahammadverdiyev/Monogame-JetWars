@@ -9,9 +9,12 @@ namespace JetWars.Source.Gameplay.Models.Jets
 {
     public abstract class EnemyJet : Jet
     {
+        protected Random rand;
+
         public EnemyJet(string path,Vector2 position,float speed,float _maxHealth) 
             : base(path, position, new Vector2(60,60),speed,_maxHealth)
         {
+            rand = new Random();
         }
 
         public override void Update()

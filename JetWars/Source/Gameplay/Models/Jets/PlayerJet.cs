@@ -15,16 +15,19 @@ namespace JetWars.Source.Gameplay.Models
 
         public PlayerJet() : base("jet", new Vector2(300, 300), new Vector2(60, 60),3.0f,20.0f)
         {
+            shootTimer = new METimer(100);
         }
 
         public override void Update()
         {
             base.Update();
+            shootTimer.UpdateTimer();
             MoveJet();
             Rotate();
-            if (Globals.mouse.LeftClick())
+            if (Globals.mouse.LeftClick() && shootTimer.Test())
             {
                 Shoot();
+                shootTimer.ResetToZero();
             }
         }
 
@@ -90,7 +93,7 @@ namespace JetWars.Source.Gameplay.Models
 
         public void Rotate()
         {
-            rotation = Physics.RotateTowards(position, Globals.mouse.GetScreenPos(Globals.mouse.New));
+            rotation = Physics.RotateTowards(position, Globals.mouse.newMousePos);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace JetWars.Source.Gameplay.Spawners
         public BasicEnemyJetSpawner(Vector2 position, Vector2 dimension, int maxModelCount)
         : base("circle",position,dimension,maxModelCount)
         {
-            spawnTimer = new METimer(30000);
+            spawnTimer = new METimer(100);
         }
 
         public override void Update()

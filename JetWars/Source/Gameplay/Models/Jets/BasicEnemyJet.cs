@@ -10,13 +10,10 @@ namespace JetWars.Source.Gameplay.Models.Jets
     public class BasicEnemyJet : EnemyJet, IRotatable
     {
 
-        METimer shootTimer;
-        Random rand;
 
         public BasicEnemyJet(Vector2 position,float speed) : base("basic-enemy",position,speed,5.0f)
         {
             shootTimer = new METimer(1000);
-            rand = new Random();
         }
 
         public override void Update()

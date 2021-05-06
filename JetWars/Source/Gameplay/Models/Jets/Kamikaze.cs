@@ -38,7 +38,7 @@ namespace JetWars.Source.Gameplay.Models.Jets
 
         public void Rotate()
         {
-            rotation = Physics.RotateTowards(position, GameGlobals.playerJet.position);
+            rotation = Physics.RotateTowards(position, target.position);
         }
 
         public override void Shoot()

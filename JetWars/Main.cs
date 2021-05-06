@@ -64,7 +64,7 @@ namespace JetWars
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (Globals.keyboard.GetPress("Escape"))
                 Exit();
 
             Globals.gameTime = gameTime;

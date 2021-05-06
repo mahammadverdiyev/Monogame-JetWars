@@ -17,6 +17,7 @@ namespace JetWars
     public abstract class Jet : Basic2D
     {
         public bool destroyed;
+        protected METimer shootTimer;
 
         protected bool isHit;
         protected bool canShoot;
