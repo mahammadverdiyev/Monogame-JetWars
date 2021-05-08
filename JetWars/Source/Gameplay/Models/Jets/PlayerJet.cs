@@ -1,6 +1,7 @@
 ﻿#region Includes
 using JetWars.Source.Engine;
 using JetWars.Source.Gameplay.Interfaces;
+using JetWars.Source.Gameplay.Models.Bullets;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -26,12 +27,24 @@ namespace JetWars.Source.Gameplay.Models
             Rotate();
             if (Globals.mouse.LeftClick() && shootTimer.Test())
             {
-                Shoot();
+                ShootRegularBullet();
                 shootTimer.ResetToZero();
+            }
+            if(Globals.mouse.RightClick())
+            {
+                ShootMissile();
             }
         }
 
-        private void Shoot()
+        private void ShootMissile()
+        {
+            Missile missile =
+                new Missile(new Vector2(position.X, position.Y), this, new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y), rotation, 10);
+    
+            GameGlobals.PassBullet(missile);
+        }
+
+        private void ShootRegularBullet()
         {
             int deflection = rand.Next(0, (int)Physics.GetDistance(position, Globals.mouse.newMousePos) / 6);
 

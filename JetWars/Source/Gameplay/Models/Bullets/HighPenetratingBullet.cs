@@ -9,10 +9,10 @@ using Microsoft.Xna.Framework;
 
 namespace JetWars.Source.Gameplay.Models
 {
-    public class StandardBullet : Bullet2D
+    public class HighPenetratingBullet : Bullet2D
     {
-        public StandardBullet(Vector2 position, Jet owner,Vector2 target, float rotation,float speed) 
-            : base("ammo", position, new Vector2(20,20),owner,target,speed,1.0f)
+        public HighPenetratingBullet(Vector2 position, Jet owner, Vector2 target, float rotation, float speed)
+            : base("bullet2", position, new Vector2(20, 20), owner, target, speed, 3.0f)
         {
             this.rotation = rotation;
         }

@@ -15,9 +15,9 @@ using Microsoft.Xna.Framework.Media;
 
 namespace JetWars.Source.Gameplay.Spawners
 {
-    public class BasicEnemyJetSpawner : ModelSpawner
+    public class CorporalSpawner : ModelSpawner
     {
-        public BasicEnemyJetSpawner(Vector2 position, Vector2 dimension, int maxModelCount)
+        public CorporalSpawner(Vector2 position, Vector2 dimension, int maxModelCount)
         : base("circle",position,dimension,maxModelCount)
         {
             spawnTimer = new METimer(100);
@@ -30,7 +30,7 @@ namespace JetWars.Source.Gameplay.Spawners
 
         public override void SpawnModel()
         {
-            GameGlobals.PassEnemyJet(new BasicEnemyJet(new Vector2(position.X, position.Y), 2.0f));
+            GameGlobals.PassEnemyJet(new CorporalEnemyJet(new Vector2(position.X, position.Y), 2.0f));
         }
     }
 }

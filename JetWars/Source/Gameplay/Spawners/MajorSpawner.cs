@@ -6,9 +6,9 @@ using System.Text;
 
 namespace JetWars.Source.Gameplay.Spawners
 {
-    public class AdvancedEnemyJetSpawner : ModelSpawner
+    public class MajorSpawner : ModelSpawner
     {
-        public AdvancedEnemyJetSpawner(Vector2 position, Vector2 dimension, int maxModelCount) : base("circle", position, dimension, maxModelCount)
+        public MajorSpawner(Vector2 position, Vector2 dimension, int maxModelCount) : base("circle", position, dimension, maxModelCount)
         {
         }
 
@@ -19,7 +19,7 @@ namespace JetWars.Source.Gameplay.Spawners
 
         public override void SpawnModel()
         {
-            GameGlobals.PassEnemyJet(new AdvancedEnemyJet(new Vector2(position.X, position.Y), 5.0f));
+            GameGlobals.PassEnemyJet(new MajorEnemyJet(new Vector2(position.X, position.Y), 5.0f));
 
         }
     }

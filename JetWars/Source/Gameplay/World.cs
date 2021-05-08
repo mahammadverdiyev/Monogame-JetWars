@@ -46,10 +46,11 @@ namespace JetWars
             GameGlobals.PassBullet = AddBullet;
             GameGlobals.PassEnemyJet = AddEnemyJet;
             offset = Vector2.Zero;
-            //spawners.Add(new BasicEnemyJetSpawner(new Vector2(50, 200), new Vector2(35, 35), 50));
+            //spawners.Add(new CorporalSpawner(new Vector2(200, 200), new Vector2(35, 35), 1));
 
             //spawners.Add(new KamikazeSpawner(new Vector2(50, 50), new Vector2(35, 35), 3));
-            spawners.Add(new AdvancedEnemyJetSpawner(new Vector2(200, 50), new Vector2(35, 35), 10));
+            spawners.Add(new MajorSpawner(new Vector2(200, 50), new Vector2(35, 35), 5));
+            //spawners.Add(new SergeantSpawner(new Vector2(200, 200), new Vector2(35, 35), 1));
 
 
             ui = new UserInterface();

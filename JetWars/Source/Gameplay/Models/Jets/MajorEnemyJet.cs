@@ -9,17 +9,18 @@ using System.Diagnostics;
 
 namespace JetWars.Source.Gameplay.Models.Jets
 {
-    public class AdvancedEnemyJet : EnemyJet, IRotatable
+    public class MajorEnemyJet : EnemyJet, IRotatable
     {
         private bool movesLeft, movesRight;
         private METimer moveTimer;
         int left, right;
-        public AdvancedEnemyJet(Vector2 position,float speed)
-        :base("advanced-enemy",position,speed,10f)
+        public MajorEnemyJet(Vector2 position,float speed)
+        :base("major",position,speed,15f)
         {
             right = (int)(Globals.screenWidth - position.X + dimension.X);
             left = (int)position.X;
-            shootTimer = new METimer(500);
+            shootTimer = new METimer(300);
+
             int moveTimerInterval;
 
             if(rand.Next(0,2) == 1)
@@ -76,23 +77,6 @@ namespace JetWars.Source.Gameplay.Models.Jets
                 position.X += speed;
             }
 
-            //if (position.X + ModelBox.Width < Globals.screenWidth && movesRight)
-            //    position.X += speed;
-
-            //if (position.X > 0 && movesLeft)
-            //    position.X -= speed;
-
-            //if(position.X + ModelBox.Width >= Globals.screenWidth)
-            //{
-            //    movesRight = false;
-            //    movesLeft = true;
-            //}
-            //if(position.X <= 0)
-            //{
-            //    movesLeft = false;
-            //    movesRight = true;
-            //}
-
             if (canShoot)
             {
                 Rotate();
@@ -115,9 +99,9 @@ namespace JetWars.Source.Gameplay.Models.Jets
                     deflection = -deflection;
 
                 Bullet2D bullet =
-                        new StandardBullet(new Vector2(position.X, position.Y),
+                        new HighPenetratingBullet(new Vector2(position.X, position.Y),
                         this, new Vector2(GameGlobals.playerJet.position.X + deflection,
-                        GameGlobals.playerJet.position.Y), rotation, 8.0f);
+                        GameGlobals.playerJet.position.Y), rotation, 10.0f);
 
                 GameGlobals.PassBullet(bullet);
                 shootTimer.ResetToZero();
