@@ -1,15 +1,6 @@
 ﻿#region Includes
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Input.Touch;
-using Microsoft.Xna.Framework.Media;
 #endregion
 
 namespace JetWars
@@ -19,7 +10,7 @@ namespace JetWars
         public bool destroyed;
         protected METimer shootTimer;
 
-        protected bool isHit;
+        public bool isHit;
         protected bool canShoot;
 
         public float speed, hitDistance, health, maxHealth;
@@ -27,6 +18,7 @@ namespace JetWars
         public METimer hitTimer;
         protected Color jetColor;
         protected METimer explosionTimer;
+
         public Jet(string PATH, Vector2 POSITION, Vector2 DIMENSION,float speed,
                         float _maxHealth) : base(PATH,POSITION,DIMENSION)
         {
@@ -47,6 +39,7 @@ namespace JetWars
         public override void Update()
         {
             hitTimer.UpdateTimer();
+
             if(explosionTimer != null)
             {
                 explosionTimer.UpdateTimer();

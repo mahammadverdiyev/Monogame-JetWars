@@ -10,7 +10,7 @@ namespace JetWars
 {
     public class Basic2D
     {
-        protected float rotation;
+        public float rotation;
         public Vector2 position, dimension;
         protected Texture2D model;
         protected Rectangle modelBox;

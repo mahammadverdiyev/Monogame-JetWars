@@ -40,7 +40,7 @@ namespace JetWars.Source.Gameplay.Models.Jets
                 position += Physics.RadialMovement(GameGlobals.playerJet.position, position, speed);
             }
 
-            if(canShoot)
+            if(!GameGlobals.playerJet.destroyed)
             {
                 Rotate();
                 Shoot();

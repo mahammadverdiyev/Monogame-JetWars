@@ -18,7 +18,7 @@ namespace JetWars.Source.Gameplay.Spawners
    public class KamikazeSpawner : ModelSpawner
     {
         public KamikazeSpawner(Vector2 position, Vector2 dimension, int maxModelCount)
-            : base("circle", position, dimension, maxModelCount)
+            : base("circle", position, dimension, maxModelCount,5000)
         {
             spawnTimer = new METimer(500);
         }
@@ -30,7 +30,7 @@ namespace JetWars.Source.Gameplay.Spawners
 
         public override void SpawnModel()
         {
-            GameGlobals.PassEnemyJet(new Kamikaze(new Vector2(position.X, position.Y), 10, GameGlobals.playerJet));
+            GameGlobals.PassEnemyJet(new Kamikaze(new Vector2(position.X, position.Y), 10));
         }
     }
 }

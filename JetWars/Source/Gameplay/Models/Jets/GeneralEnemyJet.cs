@@ -10,27 +10,16 @@ using System.Text;
 
 namespace JetWars.Source.Gameplay.Models.Jets
 {
-    public class SergeantEnemyJet : EnemyJet, IRotatable
+    public class GeneralEnemyJet : EnemyJet, IRotatable
     {
-        private METimer missileShootCooldown;
         private METimer moveTimer;
         bool movesRight, movesLeft;
-        public SergeantEnemyJet(Vector2 position, float speed) 
-            : base("sergeant", position, speed, 10)
+        public GeneralEnemyJet(Vector2 position, float speed)
+            : base("general", position, speed, 30)
         {
-            shootTimer = new METimer(800);
-            missileShootCooldown = new METimer(7000);
-
-            if(rand.Next(0,2) == 0)
-            {
-                movesRight = true;
-                movesLeft = false;
-            }
-            else
-            {
-                movesRight = false;
-                movesLeft = true;
-            }
+            shootTimer = new METimer(1000);
+            movesRight = true;
+            movesLeft  = false;
         }
 
         public override void Update()
@@ -46,9 +35,29 @@ namespace JetWars.Source.Gameplay.Models.Jets
         public override void BehaveArtificially()
         {
             shootTimer.UpdateTimer();
-            missileShootCooldown.UpdateTimer();
 
-            MoveLeftOrRight();
+            if (moveTimer != null)
+            {
+                moveTimer.UpdateTimer();
+                if(movesRight)
+                {
+                    position.X += speed;
+                    if(Physics.IsOutOfArena(position))
+                    {
+                        movesRight = false;
+                        movesLeft = true;
+                    }
+                }
+                else if(movesLeft)
+                {
+                    position.X -= speed;
+                    if (Physics.IsOutOfArena(position))
+                    {
+                        movesRight = true;
+                        movesLeft = false;
+                    }
+                }
+            }
 
             if (moveTimer != null && moveTimer.Test())
             {
@@ -70,32 +79,6 @@ namespace JetWars.Source.Gameplay.Models.Jets
             }
         }
 
-        private void MoveLeftOrRight()
-        {
-            if (moveTimer != null)
-            {
-                moveTimer.UpdateTimer();
-                if (movesRight)
-                {
-                    position.X += speed;
-                    if (Physics.IsOutOfArena(position))
-                    {
-                        movesRight = false;
-                        movesLeft = true;
-                    }
-                }
-                else if (movesLeft)
-                {
-                    position.X -= speed;
-                    if (Physics.IsOutOfArena(position))
-                    {
-                        movesRight = true;
-                        movesLeft = false;
-                    }
-                }
-            }
-        }
-
         private void Move()
         {
             List<Bullet2D> bullets = new List<Bullet2D>(GameGlobals.playerBullets);
@@ -103,22 +86,34 @@ namespace JetWars.Source.Gameplay.Models.Jets
             foreach (Bullet2D bullet in bullets)
             {
                 Vector2 playerToMe = GameGlobals.playerJet.position - position;
-                Vector2 playerToBullet = bullet.position
+                Vector2 bulletToMe = bullet.position - position;
+                Vector2 playerToBullet = bullet.position 
                                                 - GameGlobals.playerJet.position;
 
-
+            
                 playerToMe.Normalize();
+                bulletToMe.Normalize();
                 playerToBullet.Normalize();
 
                 float dotProduct = -1 * Vector2.Dot(playerToMe, playerToBullet);
 
                 if (
-                    Physics.GetDistance(position, bullet.position) < hitDistance * 10
-                    &&
+                    //Physics.GetDistance(position, bullet.position) < hitDistance * 8
+                    //&& 
                     dotProduct >= 0.99f
                     )
                 {
-                    moveTimer = new METimer(1000);
+                //if(bullet.position.X > position.X)
+                //{
+                //    movesLeft = true;
+                //    movesRight = false;
+                //}
+                //else if (bullet.position.X < position.X)
+                //{
+                //    movesLeft = false;
+                //    movesRight = true;
+                //}
+                    moveTimer = new METimer(500);
                     return;
                 }
 
@@ -134,23 +129,9 @@ namespace JetWars.Source.Gameplay.Models.Jets
         {
             if (shootTimer.Test())
             {
-                int deflection = rand.Next(0, (int)Physics.GetDistance(position, GameGlobals.playerJet.position) / 4);
-
-                if (rand.Next(0, 2) == 0)
-                    deflection = -deflection;
-
-                Bullet2D bullet =
-                        new ImprovedBullet(new Vector2(position.X, position.Y),
-                        this, new Vector2(GameGlobals.playerJet.position.X + deflection,
-                        GameGlobals.playerJet.position.Y), rotation, 8.0f);
-
-                GameGlobals.PassBullet(bullet);
                 shootTimer.ResetToZero();
-            }
 
-            if (missileShootCooldown.Test())
-            {
-                int deflection = rand.Next(0, (int)Physics.GetDistance(position, GameGlobals.playerJet.position) / 4);
+                int deflection = rand.Next(0, (int)Physics.GetDistance(position, GameGlobals.playerJet.position) / 10);
 
                 if (rand.Next(0, 2) == 0)
                     deflection = -deflection;
@@ -203,33 +184,33 @@ namespace JetWars.Source.Gameplay.Models.Jets
                     rightSecondY = rightFirstY - difference;
                 }
 
-                Bullet2D leftMissileLeft =
-                        new Missile(new Vector2(leftFirstX, leftFirstY),
+                Bullet2D leftFirstBullet =
+                        new HighPenetratingBullet(new Vector2(leftFirstX, leftFirstY),
                         this, new Vector2(GameGlobals.playerJet.position.X + deflection,
                         GameGlobals.playerJet.position.Y), rotation, 5.0f);
 
-                Bullet2D rightMissileRight =
-                        new Missile(new Vector2(rightFirstX, rightFirstY),
+                Bullet2D rightFirstBullet =
+                        new HighPenetratingBullet(new Vector2(rightFirstX, rightFirstY),
                         this, new Vector2(GameGlobals.playerJet.position.X + deflection,
                         GameGlobals.playerJet.position.Y), rotation, 5.0f);
 
-                Bullet2D leftMissileSecond =
-                        new Missile(new Vector2(leftSecondX, leftSecondY),
+                Bullet2D leftSecondBullet =
+                        new HighPenetratingBullet(new Vector2(leftSecondX, leftSecondY),
                         this, new Vector2(GameGlobals.playerJet.position.X + deflection,
                         GameGlobals.playerJet.position.Y), rotation, 5.0f);
 
-                Bullet2D rightMissileSecond =
-                        new Missile(new Vector2(rightSecondX, rightSecondY),
+                Bullet2D rigtSecondBullet =
+                        new HighPenetratingBullet(new Vector2(rightSecondX, rightSecondY),
                         this, new Vector2(GameGlobals.playerJet.position.X + deflection,
                         GameGlobals.playerJet.position.Y), rotation, 5.0f);
 
-                GameGlobals.PassBullet(leftMissileLeft);
-                GameGlobals.PassBullet(rightMissileRight);
-                GameGlobals.PassBullet(leftMissileSecond);
-                GameGlobals.PassBullet(rightMissileSecond);
-                                
-                missileShootCooldown.ResetToZero();
+                GameGlobals.PassBullet(leftFirstBullet);
+                GameGlobals.PassBullet(rightFirstBullet);
+                GameGlobals.PassBullet(leftSecondBullet);
+                GameGlobals.PassBullet(rigtSecondBullet);
+
             }
+
         }
     }
 }

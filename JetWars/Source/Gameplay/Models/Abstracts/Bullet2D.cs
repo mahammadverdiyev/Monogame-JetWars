@@ -60,7 +60,6 @@ namespace JetWars.Source.Gameplay.Models
                 {
                     if (HitsJet(jets[i]))
                     {
-                        Debug.WriteLine("HIT");
                         jets[i].GetHit(damage);
                         return true;
                     }

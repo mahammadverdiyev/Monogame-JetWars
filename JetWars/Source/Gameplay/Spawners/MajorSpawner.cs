@@ -8,7 +8,9 @@ namespace JetWars.Source.Gameplay.Spawners
 {
     public class MajorSpawner : ModelSpawner
     {
-        public MajorSpawner(Vector2 position, Vector2 dimension, int maxModelCount) : base("circle", position, dimension, maxModelCount)
+
+        public MajorSpawner(Vector2 position, Vector2 dimension, int maxModelCount) 
+            : base("circle", position, dimension, maxModelCount,5000)
         {
         }
 

@@ -5,6 +5,8 @@ using System.Text;
 using JetWars.Source;
 using JetWars.Source.Gameplay;
 using JetWars.Source.Gameplay.Models;
+using JetWars.Source.Gameplay.Models.Abstracts;
+using JetWars.Source.Gameplay.Models.Items;
 using JetWars.Source.Gameplay.Models.Jets;
 using JetWars.Source.Gameplay.Spawners;
 using Microsoft.Xna.Framework;
@@ -22,7 +24,7 @@ namespace JetWars
         public ScrollingBackground bg2;
 
         public int destroyedJetCount;
-
+        
         public UserInterface ui;
             
         public Vector2 offset;
@@ -30,7 +32,8 @@ namespace JetWars
         public List<Bullet2D> bullets = new List<Bullet2D>();
         public List<Jet> enemies = new List<Jet>();
         public List<ModelSpawner> spawners = new List<ModelSpawner>();
-        
+        public List<Item> items = new List<Item>();
+
         public Globals.PassObject ResetWorld;
 
         public World(Globals.PassObject resetWorld)
@@ -39,6 +42,7 @@ namespace JetWars
 
             playerJet = new PlayerJet();
             GameGlobals.playerJet = playerJet;
+            GameGlobals.playerBullets = new List<Bullet2D>();
             destroyedJetCount = 0;
 
             bg1 = new ScrollingBackground("star1",new Rectangle(0,0,900,675), 1);
@@ -46,11 +50,12 @@ namespace JetWars
             GameGlobals.PassBullet = AddBullet;
             GameGlobals.PassEnemyJet = AddEnemyJet;
             offset = Vector2.Zero;
-            //spawners.Add(new CorporalSpawner(new Vector2(200, 200), new Vector2(35, 35), 1));
 
-            //spawners.Add(new KamikazeSpawner(new Vector2(50, 50), new Vector2(35, 35), 3));
-            spawners.Add(new MajorSpawner(new Vector2(200, 50), new Vector2(35, 35), 5));
-            //spawners.Add(new SergeantSpawner(new Vector2(200, 200), new Vector2(35, 35), 1));
+            //spawners.Add(new CorporalSpawner(new Vector2(200, 200), new Vector2(35, 35), 5));
+            //spawners.Add(new KamikazeSpawner(new Vector2(50, 50), new Vector2(35, 35), 5));
+            //spawners.Add(new MajorSpawner(new Vector2(200, 50), new Vector2(35, 35), 5));
+            spawners.Add(new SergeantSpawner(new Vector2(200, 200), new Vector2(35, 35), 1));
+            //spawners.Add(new GeneralSpawner(new Vector2(200, 200), new Vector2(35, 35), 1));
 
 
             ui = new UserInterface();
@@ -65,6 +70,7 @@ namespace JetWars
                 bg1.Update();
                 bg2.Update();
 
+                UpdateItems();
                 UpdateSpawners();
                 UpdateBullets();
                 UpdateEnemyJets();
@@ -79,7 +85,17 @@ namespace JetWars
             }
             ui.Update(this);
         }
-
+        private void UpdateItems()
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                items[i].Update();
+                if (items[i].Taken)
+                {
+                    items.RemoveAt(i);
+                }
+            }
+        }
         private void UpdateSpawners()
         {
             for (int i = 0; i < spawners.Count; i++)
@@ -94,6 +110,7 @@ namespace JetWars
 
         private void UpdateBullets()
         {
+            GameGlobals.playerBullets.Clear();
             for (int i = 0; i < bullets.Count; i++)
             {
                 bullets[i].Update(offset, enemies);
@@ -101,6 +118,10 @@ namespace JetWars
                 {
                     bullets.RemoveAt(i);
                     i--;
+                }
+                else if(bullets[i].owner is PlayerJet)
+                {
+                    GameGlobals.playerBullets.Add(bullets[i]);
                 }
 
             }
@@ -113,11 +134,15 @@ namespace JetWars
                 enemies[i].Update();
                 if (enemies[i].destroyed)
                 {
+                    //items.Add(new AccuracyIncreaser(enemies[i].position));
+                    //items.Add(new MedKit(enemies[i].position));
+                    //items.Add(new FireSpeedIncreaser(enemies[i].position));
+                    items.Add(new Shield(enemies[i].position));
+
                     destroyedJetCount++;
                     enemies.RemoveAt(i);
                     i--;
                 }
-
             }
         }
 
@@ -125,9 +150,9 @@ namespace JetWars
         {
             enemies.Add((EnemyJet)enemyJet);
         }
-        public virtual void AddBullet(object info)
+        public virtual void AddBullet(object bullet)
         {
-            bullets.Add((Bullet2D)info);
+            bullets.Add((Bullet2D)bullet);
         }
 
         private void AdjustBackground()
@@ -147,6 +172,7 @@ namespace JetWars
             bullets.ForEach(projectile => projectile.Draw(offset));
 
             spawners.ForEach(location => location.Draw(offset));
+            items.ForEach(item => item.Draw(offset));
             enemies.ForEach(enemy => enemy.Draw(offset));
 
             ui.Draw(this);

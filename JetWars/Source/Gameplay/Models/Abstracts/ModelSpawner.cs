@@ -22,13 +22,13 @@ namespace JetWars.Source.Gameplay
         public int modelCounter;
         public bool finished;
 
-        public ModelSpawner(string path, Vector2 position, Vector2 dimension,int maxModelCount)
+        public ModelSpawner(string path, Vector2 position, Vector2 dimension,int maxModelCount,int spawnInterval)
             :base(path,position,dimension)
         {
             finished = false;
             modelCounter = 0;
             this.maxModelCount = maxModelCount < 0 ? int.MaxValue : maxModelCount;
-            spawnTimer = new METimer(2000);
+            spawnTimer = new METimer(spawnInterval);
         }
 
         public override void Update()

@@ -18,7 +18,7 @@ namespace JetWars.Source.Gameplay.Spawners
     public class SergeantSpawner : ModelSpawner
     {
         public SergeantSpawner(Vector2 position, Vector2 dimension, int maxModelCount)
-        : base("circle", position, dimension, maxModelCount)
+        : base("circle", position, dimension, maxModelCount,3000)
   
         {
             spawnTimer = new METimer(100);
@@ -31,7 +31,7 @@ namespace JetWars.Source.Gameplay.Spawners
 
         public override void SpawnModel()
         {
-            GameGlobals.PassEnemyJet(new SergeantEnemyJet(new Vector2(position.X, position.Y), 3.0f));
+            GameGlobals.PassEnemyJet(new SergeantEnemyJet(new Vector2(position.X, position.Y),4.0f));
         }
     }
 }

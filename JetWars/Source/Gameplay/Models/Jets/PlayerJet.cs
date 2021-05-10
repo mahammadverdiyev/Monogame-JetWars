@@ -13,46 +13,122 @@ namespace JetWars.Source.Gameplay.Models
     {
 
         Random rand = new Random();
+        public int bulletFireSpeed;
+        public int missileFireSpeed;
+        public int accuracyValue;
+        METimer shieldTimer;
+        bool isShieldActive;
+        private METimer missileShootCooldown;
 
-        public PlayerJet() : base("jet", new Vector2(300, 300), new Vector2(60, 60),3.0f,20.0f)
+        public PlayerJet() : base("jet", new Vector2(300, 300), new Vector2(60, 60),2.5f,20f)
         {
-            shootTimer = new METimer(100);
+            accuracyValue = 6;
+            bulletFireSpeed = 700;
+            missileFireSpeed = 5000;
+            isShieldActive = false;
+            shootTimer = new METimer(1000 - bulletFireSpeed);
+            missileShootCooldown = new METimer(10000 - missileFireSpeed);
         }
 
         public override void Update()
         {
             base.Update();
+
+            missileShootCooldown.UpdateTimer();
             shootTimer.UpdateTimer();
+
+            UpdateShield();
+
             MoveJet();
             Rotate();
+
+
             if (Globals.mouse.LeftClick() && shootTimer.Test())
             {
                 ShootRegularBullet();
-                shootTimer.ResetToZero();
+                shootTimer.Reset(1000 - bulletFireSpeed);
             }
-            if(Globals.mouse.RightClick())
+            if (Globals.mouse.RightClick() && missileShootCooldown.Test())
             {
                 ShootMissile();
+                missileShootCooldown.Reset();
             }
+        }
+
+        private void UpdateShield()
+        {
+            if (shieldTimer != null)
+            {
+                shieldTimer.UpdateTimer();
+                if (shieldTimer.Test())
+                {
+                    jetColor = Color.White;
+                    isShieldActive = false;
+                    shieldTimer = null;
+                }
+            }
+        }
+
+        public void ActivateShield()
+        {
+            jetColor = Color.CornflowerBlue;
+            isShieldActive = true;
+            shieldTimer = new METimer(5000);
+        }
+
+        public override void GetHit(float damage)
+        {
+            if(!isShieldActive)
+                base.GetHit(damage);
         }
 
         private void ShootMissile()
         {
-            Missile missile =
-                new Missile(new Vector2(position.X, position.Y), this, new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y), rotation, 10);
-    
-            GameGlobals.PassBullet(missile);
+                Missile missile =
+                 new Missile(new Vector2(position.X, position.Y), this, new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y), rotation, 10);
+
+                GameGlobals.PassBullet(missile);
+                missileShootCooldown.ResetToZero();
+        }
+
+        public void MaximizeHealth()
+        {
+            health = maxHealth;
+        }
+
+        public void IncreaseFireSpeed()
+        {
+            if(bulletFireSpeed + 50 <= 1000)
+                bulletFireSpeed += 50;
+            if (missileFireSpeed + 100 <= 7000)
+                missileFireSpeed += 100;
+        }
+        public void IncreaseAccuracy()
+        {
+            accuracyValue++;
+        }
+
+        public void IncreaseJetSpeed()
+        {
+            if(speed + 0.5f <= 6)
+            {
+                speed += 0.5f;
+            }
+        }
+        public void IncreaseMaxHealth()
+        {
+            maxHealth += 10;
         }
 
         private void ShootRegularBullet()
         {
-            int deflection = rand.Next(0, (int)Physics.GetDistance(position, Globals.mouse.newMousePos) / 6);
+            int deflection = rand.Next(0, (int)Physics.GetDistance(position, Globals.mouse.newMousePos) / accuracyValue);
 
             if (rand.Next(0, 2) == 0)
                 deflection = -deflection;
 
             Bullet2D bullet =
-                new StandardBullet(new Vector2(position.X, position.Y), this, new Vector2(Globals.mouse.newMousePos.X + deflection, Globals.mouse.newMousePos.Y), rotation,15.0f);
+                new StandardBullet(new Vector2(position.X, position.Y), this, new Vector2(Globals.mouse.newMousePos.X + deflection, Globals.mouse.newMousePos.Y), rotation,14.0f);
 
             GameGlobals.PassBullet(bullet);
         }

@@ -27,13 +27,13 @@ namespace JetWars.Source.Gameplay.Models.Jets
             {
                 movesRight = true;
                 movesLeft = false;
-                moveTimerInterval = (int)(right / speed) * 15;
+                moveTimerInterval = (int)(right / speed) * 14;
             }
             else
             {
                 movesRight = false;
                 movesLeft = true;
-                moveTimerInterval = (int)(left / speed) * 15;
+                moveTimerInterval = (int)(left / speed) * 14;
             }
             moveTimer = new METimer(moveTimerInterval);
         }
@@ -62,9 +62,9 @@ namespace JetWars.Source.Gameplay.Models.Jets
                 movesRight = !movesRight;
                 int time;
                 if (movesRight)
-                    time = (int)(right / speed) * 15;
+                    time = (int)(right / speed) * 14;
                 else
-                    time = (int)(left / speed) * 15;
+                    time = (int)(left / speed) * 14;
                 moveTimer.Reset(time);
             }
 
@@ -77,7 +77,7 @@ namespace JetWars.Source.Gameplay.Models.Jets
                 position.X += speed;
             }
 
-            if (canShoot)
+            if (!GameGlobals.playerJet.destroyed)
             {
                 Rotate();
                 Shoot();
@@ -99,9 +99,9 @@ namespace JetWars.Source.Gameplay.Models.Jets
                     deflection = -deflection;
 
                 Bullet2D bullet =
-                        new HighPenetratingBullet(new Vector2(position.X, position.Y),
+                        new ImprovedBullet(new Vector2(position.X, position.Y),
                         this, new Vector2(GameGlobals.playerJet.position.X + deflection,
-                        GameGlobals.playerJet.position.Y), rotation, 10.0f);
+                        GameGlobals.playerJet.position.Y), rotation, 12.0f);
 
                 GameGlobals.PassBullet(bullet);
                 shootTimer.ResetToZero();
