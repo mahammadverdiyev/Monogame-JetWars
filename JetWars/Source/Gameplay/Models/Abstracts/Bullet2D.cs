@@ -1,13 +1,6 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Input;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using JetWars.Source.Engine;
-using System.Diagnostics;
 
 namespace JetWars.Source.Gameplay.Models
 {

@@ -18,23 +18,24 @@ namespace JetWars
 {
     public class World
     {
-        public PlayerJet playerJet;
+        private PlayerJet playerJet;
      
-        public ScrollingBackground bg1;
-        public ScrollingBackground bg2;
+        private ScrollingBackground bg1;
+        private ScrollingBackground bg2;
 
-        public int destroyedJetCount;
+        private int destroyedJetCount;
+        public int DestroyedJetCount => destroyedJetCount;
         
-        public UserInterface ui;
+        private UserInterface ui;
             
-        public Vector2 offset;
+        private Vector2 offset;
 
-        public List<Bullet2D> bullets = new List<Bullet2D>();
-        public List<Jet> enemies = new List<Jet>();
-        public List<ModelSpawner> spawners = new List<ModelSpawner>();
-        public List<Item> items = new List<Item>();
+        private List<Bullet2D> bullets = new List<Bullet2D>();
+        private List<Jet> enemies = new List<Jet>();
+        private List<ModelSpawner> spawners = new List<ModelSpawner>();
+        private List<Item> items = new List<Item>();
 
-        public Globals.PassObject ResetWorld;
+        private Globals.PassObject ResetWorld;
 
         public World(Globals.PassObject resetWorld)
         {
@@ -50,14 +51,7 @@ namespace JetWars
             GameGlobals.PassBullet = AddBullet;
             GameGlobals.PassEnemyJet = AddEnemyJet;
             offset = Vector2.Zero;
-
-            //spawners.Add(new CorporalSpawner(new Vector2(200, 200), new Vector2(35, 35), 5));
-            //spawners.Add(new KamikazeSpawner(new Vector2(50, 50), new Vector2(35, 35), 5));
-            //spawners.Add(new MajorSpawner(new Vector2(200, 50), new Vector2(35, 35), 5));
             spawners.Add(new SergeantSpawner(new Vector2(200, 200), new Vector2(35, 35), 1));
-            //spawners.Add(new GeneralSpawner(new Vector2(200, 200), new Vector2(35, 35), 1));
-
-
             ui = new UserInterface();
         }
 

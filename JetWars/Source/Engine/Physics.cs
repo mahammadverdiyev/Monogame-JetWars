@@ -1,24 +1,12 @@
-﻿#region Includes
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
 
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using System.Diagnostics;
-#endregion
 namespace JetWars.Source.Engine
 {
     public class Physics
     {
-
+        private static Main game;
+        public static Main Game { set => game = value; }
         public static float RotateTowards(Vector2 source, Vector2 focus)
         {
             Vector2 distance = Vector2.Zero;
@@ -56,10 +44,10 @@ namespace JetWars.Source.Engine
 
         public static bool TouchesOneOfBounds(Rectangle rect)
         {
-            return Globals.leftBound.Intersects(rect) ||
-                   Globals.rightBound.Intersects(rect) ||
-                   Globals.topBound.Intersects(rect) ||
-                   Globals.bottomBound.Intersects(rect);
+            return game.LeftBound.Intersects(rect) ||
+                   game.RightBound.Intersects(rect) ||
+                   game.TopBound.Intersects(rect) ||
+                   game.BottomBound.Intersects(rect);
         }
 
         public static bool IsOutOfArena(Vector2 position)

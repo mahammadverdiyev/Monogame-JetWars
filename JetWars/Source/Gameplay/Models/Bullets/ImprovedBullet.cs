@@ -17,9 +17,7 @@ namespace JetWars.Source.Gameplay.Models
             this.rotation = rotation;
         }
 
-        public override void Update()
-        {
-        }
+        public override void Update() { }
 
         public override void Update(Vector2 offset, List<Jet> jets)
         {

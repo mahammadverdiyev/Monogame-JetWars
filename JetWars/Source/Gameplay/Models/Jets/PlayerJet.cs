@@ -1,10 +1,12 @@
 ﻿#region Includes
 using JetWars.Source.Engine;
 using JetWars.Source.Gameplay.Interfaces;
+using JetWars.Source.Gameplay.Models.Abstracts;
 using JetWars.Source.Gameplay.Models.Bullets;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 #endregion
 
 namespace JetWars.Source.Gameplay.Models
@@ -12,12 +14,12 @@ namespace JetWars.Source.Gameplay.Models
     public class PlayerJet : Jet, IRotatable
     {
 
-        Random rand = new Random();
-        public int bulletFireSpeed;
-        public int missileFireSpeed;
-        public int accuracyValue;
-        METimer shieldTimer;
-        bool isShieldActive;
+        private Random rand = new Random();
+        private int bulletFireSpeed;
+        private int missileFireSpeed;
+        private int accuracyValue;
+        private METimer shieldTimer;
+        private bool isShieldActive;
         private METimer missileShootCooldown;
 
         public PlayerJet() : base("jet", new Vector2(300, 300), new Vector2(60, 60),2.5f,20f)

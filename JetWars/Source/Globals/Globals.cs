@@ -16,8 +16,6 @@ using Microsoft.Xna.Framework.Media;
 
 namespace JetWars
 {
-
-
     public class Globals
     {
         public delegate void PassObject(object obj);
@@ -25,13 +23,8 @@ namespace JetWars
         public static int screenHeight, screenWidth;
         public static ContentManager content;
         public static SpriteBatch spriteBatch;
-        public static KeyboardControl keyboard;
+        public static KeyBoardControl keyboard;
         public static MouseControl mouse;
-        public static Rectangle leftBound;
-        public static Rectangle rightBound;
-        public static Rectangle topBound;
-        public static Rectangle bottomBound;
         public static GameTime gameTime;
-
     }
 }

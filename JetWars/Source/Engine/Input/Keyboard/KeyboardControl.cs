@@ -14,17 +14,12 @@ using Microsoft.Xna.Framework.Media;
 
 namespace JetWars
 {
-    public class KeyboardControl
+    public class KeyBoardControl
     {
 
         public KeyboardState newKeyboard, oldKeyboard;
 
         public List<MEKey> pressedKeys = new List<MEKey>(), previousPressedKeys = new List<MEKey>();
-
-        public KeyboardControl()
-        {
-
-        }
 
         public virtual void Update()
         {
@@ -61,12 +56,10 @@ namespace JetWars
 
         public virtual void GetPressedKeys()
         {
-            bool found = false;
-            
             pressedKeys.Clear();
             for(int i=0; i<newKeyboard.GetPressedKeys().Length; i++)
             {
-                    pressedKeys.Add(new MEKey(newKeyboard.GetPressedKeys()[i].ToString(), 1));
+                pressedKeys.Add(new MEKey(newKeyboard.GetPressedKeys()[i].ToString(), 1));
             }
         }
 

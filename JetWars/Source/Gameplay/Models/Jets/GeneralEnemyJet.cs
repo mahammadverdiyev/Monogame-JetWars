@@ -208,7 +208,6 @@ namespace JetWars.Source.Gameplay.Models.Jets
                 GameGlobals.PassBullet(rightFirstBullet);
                 GameGlobals.PassBullet(leftSecondBullet);
                 GameGlobals.PassBullet(rigtSecondBullet);
-
             }
 
         }

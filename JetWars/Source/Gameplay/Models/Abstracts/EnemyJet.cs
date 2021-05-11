@@ -12,8 +12,8 @@ namespace JetWars.Source.Gameplay.Models.Jets
         protected Random rand;
         public Jet target;
 
-        public EnemyJet(string path,Vector2 position,float speed,float _maxHealth) 
-            : base(path, position, new Vector2(60,60),speed,_maxHealth)
+        public EnemyJet(string path, Vector2 position, float speed, float _maxHealth)
+            : base(path, position, new Vector2(60,60), speed, _maxHealth)
         {
             target = GameGlobals.playerJet;
             rand = new Random();
@@ -30,8 +30,7 @@ namespace JetWars.Source.Gameplay.Models.Jets
             BehaveArtificially();
         }
 
-        private bool HitsPlayerJet =>
-    Physics.GetDistance(position, target.position) <= target.hitDistance;
+        private bool HitsPlayerJet => Physics.GetDistance(position, target.position) <= target.hitDistance;
 
         public abstract void BehaveArtificially();
 

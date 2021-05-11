@@ -18,7 +18,7 @@ namespace JetWars.Source.Gameplay.Spawners
     public class CorporalSpawner : ModelSpawner
     {
         public CorporalSpawner(Vector2 position, Vector2 dimension, int maxModelCount)
-        : base("circle",position,dimension,maxModelCount,1000)
+        : base("circle", position, dimension, maxModelCount, 1000)
         {
             spawnTimer = new METimer(100);
         }

@@ -34,7 +34,7 @@ namespace JetWars.Source.Gameplay
         }
         public void Draw(World world)
         {
-            string str = $"Destroyed: {world.destroyedJetCount}";
+            string str = $"Destroyed: {world.DestroyedJetCount}";
             Vector2 strDimensions = font.MeasureString(str);
             Globals.spriteBatch.DrawString(font, str,new Vector2(Globals.screenWidth / 2 - strDimensions.X / 2,Globals.screenHeight - strDimensions.Y), Color.White);
             healthBar.Draw(new Vector2(20, Globals.screenHeight - 40));
