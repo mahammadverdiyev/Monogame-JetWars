@@ -51,7 +51,7 @@ namespace JetWars
             GameGlobals.PassBullet = AddBullet;
             GameGlobals.PassEnemyJet = AddEnemyJet;
             offset = Vector2.Zero;
-            spawners.Add(new SergeantSpawner(new Vector2(200, 200), new Vector2(35, 35), 1));
+            spawners.Add(new SergeantSpawner(new Vector2(200, 200), new Vector2(35, 35), 100));
             ui = new UserInterface();
         }
 
@@ -128,11 +128,8 @@ namespace JetWars
                 enemies[i].Update();
                 if (enemies[i].destroyed)
                 {
-                    //items.Add(new AccuracyIncreaser(enemies[i].position));
-                    //items.Add(new MedKit(enemies[i].position));
-                    //items.Add(new FireSpeedIncreaser(enemies[i].position));
-                    items.Add(new Shield(enemies[i].position));
-
+                    Item itemToThrow = RandomItemSpawner.GetRandomItem((EnemyJet)enemies[i]);
+                    items.Add(itemToThrow);
                     destroyedJetCount++;
                     enemies.RemoveAt(i);
                     i--;

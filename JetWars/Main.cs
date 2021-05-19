@@ -21,9 +21,6 @@ namespace JetWars
         public Rectangle TopBound => topBound;
         public Rectangle BottomBound => bottomBound;
 
-        private KeyBoardControl keyBoardControl;
-        public KeyBoardControl KeyBoardControl => keyBoardControl;
-
         public Main()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -49,7 +46,7 @@ namespace JetWars
             InitializeGlobals();
             gamePlay = new GamePlay();
             Physics.Game = this;
-            keyBoardControl = new KeyBoardControl();
+            Globals.keyboard = new KeyBoardControl();
 
             leftBound = new Rectangle(18, 0, 1, Globals.screenHeight);
             rightBound = new Rectangle(Globals.screenWidth + 22, 0, 1, Globals.screenHeight);
@@ -68,16 +65,16 @@ namespace JetWars
 
         protected override void Update(GameTime gameTime)
         {
-            if (keyBoardControl.GetPress("Escape"))
+            if (Globals.keyboard.GetPress("Escape"))
                 Exit();
 
             Globals.gameTime = gameTime;
-            keyBoardControl.Update();
+            Globals.keyboard.Update();
             Globals.mouse.Update();
 
             gamePlay.Update();
 
-            keyBoardControl.UpdateOld();
+            Globals.keyboard.UpdateOld();
             Globals.mouse.UpdateOld();
 
             base.Update(gameTime);

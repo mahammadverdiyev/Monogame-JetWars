@@ -1,11 +1,9 @@
 ﻿using JetWars.Source.Engine;
 using JetWars.Source.Gameplay.Interfaces;
-using JetWars.Source.Gameplay.Models.Bullets;
+using JetWars.Source.Gameplay.Models.Abstracts;
+using JetWars.Source.Gameplay.Models.Items;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 
 
 namespace JetWars.Source.Gameplay.Models.Jets
@@ -20,6 +18,10 @@ namespace JetWars.Source.Gameplay.Models.Jets
             shootTimer = new METimer(1000);
             movesRight = true;
             movesLeft  = false;
+
+            items.Add(new AccuracyIncreaser(position));
+            items.Add(new JetSpeedIncreaser(position));
+            items.Add(new MaxHealthIncreaser(position));
         }
 
         public override void Update()

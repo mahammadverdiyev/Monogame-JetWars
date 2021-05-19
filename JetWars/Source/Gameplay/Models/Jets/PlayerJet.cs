@@ -22,6 +22,9 @@ namespace JetWars.Source.Gameplay.Models
         private bool isShieldActive;
         private METimer missileShootCooldown;
 
+        public int BulletFireSpeed => bulletFireSpeed;
+        public int AccuracyValue => accuracyValue;
+
         public PlayerJet() : base("jet", new Vector2(300, 300), new Vector2(60, 60),2.5f,20f)
         {
             accuracyValue = 6;

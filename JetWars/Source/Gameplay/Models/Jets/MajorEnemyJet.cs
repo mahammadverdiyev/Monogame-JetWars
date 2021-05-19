@@ -1,6 +1,7 @@
 ﻿#region Includes
 using JetWars.Source.Engine;
 using JetWars.Source.Gameplay.Interfaces;
+using JetWars.Source.Gameplay.Models.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -36,6 +37,12 @@ namespace JetWars.Source.Gameplay.Models.Jets
                 moveTimerInterval = (int)(left / speed) * 14;
             }
             moveTimer = new METimer(moveTimerInterval);
+
+            items.Add(new Shield(position));
+            items.Add(new AccuracyIncreaser(position));
+            items.Add(new FireSpeedIncreaser(position));
+            items.Add(new MaxHealthIncreaser(position));
+            items.Add(new MedKit(position));
         }
 
 

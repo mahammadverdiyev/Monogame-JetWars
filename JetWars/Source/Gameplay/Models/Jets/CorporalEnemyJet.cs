@@ -2,8 +2,10 @@
 using JetWars.Source.Gameplay.Interfaces;
 using JetWars.Source.Gameplay.Models.Abstracts;
 using JetWars.Source.Gameplay.Models.Bullets;
+using JetWars.Source.Gameplay.Models;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using JetWars.Source.Gameplay.Models.Items;
 
 namespace JetWars.Source.Gameplay.Models.Jets
 {
@@ -11,16 +13,11 @@ namespace JetWars.Source.Gameplay.Models.Jets
     {
 
         private METimer missileShootCooldown;
-
-        private List<Item> items = new List<Item>()
-        {
-
-        };
-
         public CorporalEnemyJet(Vector2 position,float speed) : base("corporal",position,speed,5.0f)
         {
             shootTimer = new METimer(1000);
             missileShootCooldown = new METimer(10000);
+            items.Add(new MedKit(position));
         }
 
         public override void Update()

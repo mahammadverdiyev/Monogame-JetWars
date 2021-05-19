@@ -1,6 +1,7 @@
 ﻿using JetWars.Source.Engine;
 using JetWars.Source.Gameplay.Interfaces;
 using JetWars.Source.Gameplay.Models.Bullets;
+using JetWars.Source.Gameplay.Models.Items;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,9 @@ namespace JetWars.Source.Gameplay.Models.Jets
     {
         private METimer missileShootCooldown;
         private METimer moveTimer;
-        bool movesRight, movesLeft;
+        private bool movesRight;
+        private bool movesLeft;
+
         public SergeantEnemyJet(Vector2 position, float speed) 
             : base("sergeant", position, speed, 10)
         {
@@ -31,6 +34,9 @@ namespace JetWars.Source.Gameplay.Models.Jets
                 movesRight = false;
                 movesLeft = true;
             }
+
+            items.Add(new MedKit(position));
+            items.Add(new Shield(position));
         }
 
         public override void Update()

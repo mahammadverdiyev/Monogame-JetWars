@@ -1,6 +1,7 @@
 ﻿#region Includes
 using JetWars.Source.Engine;
 using JetWars.Source.Gameplay.Interfaces;
+using JetWars.Source.Gameplay.Models.Items;
 using Microsoft.Xna.Framework;
 #endregion
 
@@ -12,6 +13,7 @@ namespace JetWars.Source.Gameplay.Models.Jets
         public Kamikaze(Vector2 position, float speed)
         : base("kamikaze", position, speed, 2f)
         {
+            items.Add(new FireSpeedIncreaser(position));
         }
 
         public override void BehaveArtificially()

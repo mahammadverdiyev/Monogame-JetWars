@@ -44,11 +44,11 @@ namespace JetWars.Source.Gameplay
             strDimensions = font.MeasureString(str);
             Globals.spriteBatch.DrawString(font, str, new Vector2(Globals.screenWidth - strDimensions.X - margin_right, Globals.screenHeight - 4 * strDimensions.Y), Color.White);
 
-            str = $"Firing speed: {GameGlobals.playerJet.bulletFireSpeed}";
+            str = $"Firing speed: {GameGlobals.playerJet.BulletFireSpeed}";
             strDimensions = font.MeasureString(str);
             Globals.spriteBatch.DrawString(font, str, new Vector2(Globals.screenWidth - strDimensions.X - margin_right, Globals.screenHeight - 3 * strDimensions.Y), Color.White);
 
-            str = $"Accuracy: {GameGlobals.playerJet.accuracyValue}";
+            str = $"Accuracy: {GameGlobals.playerJet.AccuracyValue}";
             strDimensions = font.MeasureString(str);
             Globals.spriteBatch.DrawString(font, str, new Vector2(Globals.screenWidth - strDimensions.X - margin_right, Globals.screenHeight - 2 * strDimensions.Y), Color.White);
 

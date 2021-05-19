@@ -1,5 +1,6 @@
 ﻿using JetWars.Source.Engine;
 using JetWars.Source.Gameplay.Interfaces;
+using JetWars.Source.Gameplay.Models.Abstracts;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,10 @@ namespace JetWars.Source.Gameplay.Models.Jets
     {
         protected Random rand;
         public Jet target;
+
+        protected List<Item> items = new List<Item>();
+
+        public List<Item> Items => items;
 
         public EnemyJet(string path, Vector2 position, float speed, float _maxHealth)
             : base(path, position, new Vector2(60,60), speed, _maxHealth)
