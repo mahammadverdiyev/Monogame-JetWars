@@ -1,6 +1,4 @@
 ﻿using System;
-using JetWars.Source.Gameplay.Models.Jets;
-using JetWars.Source.Gameplay.Models.Abstracts;
 
 namespace JetWars
 {
