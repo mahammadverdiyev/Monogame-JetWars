@@ -7,7 +7,7 @@ namespace JetWars
         public KamikazeSpawner(Vector2 position, Vector2 dimension, int maxModelCount)
             : base("circle", position, dimension, maxModelCount, 5000)
         {
-            spawnTimer = new METimer(500);
+            spawnTimer = new CustomTimer(500);
         }
 
         public override void Update()

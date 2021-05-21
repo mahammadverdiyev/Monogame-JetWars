@@ -1,27 +1,21 @@
 ﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework;
 
 namespace JetWars
 {
-    public class METimer
+    public class CustomTimer
     {
         public bool goodToGo;
         protected int mSec;
         protected TimeSpan timer = new TimeSpan();
         
 
-        public METimer(int m)
+        public CustomTimer(int m)
         {
             goodToGo = false;
             mSec = m;
         }
-        public METimer(int m, bool STARTLOADED)
+        public CustomTimer(int m, bool STARTLOADED)
         {
             goodToGo = STARTLOADED;
             mSec = m;
@@ -36,8 +30,6 @@ namespace JetWars
         {
             get { return (int)timer.TotalMilliseconds; }
         }
-
-        
 
         public void UpdateTimer()
         {
@@ -94,9 +86,6 @@ namespace JetWars
             XElement xml= new XElement("Timer",
                                     new XElement("mSec", mSec),
                                     new XElement("timer", Timer));
-
-
-
             return xml;
         }
 

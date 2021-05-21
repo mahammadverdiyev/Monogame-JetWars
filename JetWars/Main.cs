@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using JetWars.Source;
-using JetWars.Source.Engine;
 
 namespace JetWars
 {
@@ -44,7 +42,7 @@ namespace JetWars
         protected override void LoadContent()
         {
             InitializeGlobals();
-            gamePlay = new GamePlay();
+            gamePlay = new GamePlay(this);
             Physics.Game = this;
             Globals.keyboard = new KeyBoardControl();
 
@@ -61,6 +59,7 @@ namespace JetWars
             Globals.mouse = new MouseControl();
             Globals.screenWidth = GraphicsDevice.Viewport.Width;
             Globals.screenHeight = GraphicsDevice.Viewport.Height;
+            Globals.state = State.StartMenu;
         }
 
         protected override void Update(GameTime gameTime)

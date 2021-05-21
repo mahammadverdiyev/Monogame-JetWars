@@ -11,9 +11,9 @@ namespace JetWars
         private int bulletFireSpeed;
         private int missileFireSpeed;
         private int accuracyValue;
-        private METimer shieldTimer;
+        private CustomTimer shieldTimer;
         private bool isShieldActive;
-        private METimer missileShootCooldown;
+        private CustomTimer missileShootCooldown;
 
         public int BulletFireSpeed => bulletFireSpeed;
         public int AccuracyValue => accuracyValue;
@@ -24,8 +24,8 @@ namespace JetWars
             bulletFireSpeed = 700;
             missileFireSpeed = 5000;
             isShieldActive = false;
-            shootTimer = new METimer(1000 - bulletFireSpeed);
-            missileShootCooldown = new METimer(10000 - missileFireSpeed);
+            shootTimer = new CustomTimer(1000 - bulletFireSpeed);
+            missileShootCooldown = new CustomTimer(10000 - missileFireSpeed);
         }
 
         public override void Update()
@@ -71,7 +71,7 @@ namespace JetWars
         {
             jetColor = Color.CornflowerBlue;
             isShieldActive = true;
-            shieldTimer = new METimer(5000);
+            shieldTimer = new CustomTimer(5000);
         }
 
         public override void GetHit(float damage)

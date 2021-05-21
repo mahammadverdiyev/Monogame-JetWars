@@ -5,16 +5,16 @@ namespace JetWars
 {
     public class SergeantEnemyJet : EnemyJet, IRotatable
     {
-        private METimer missileShootCooldown;
-        private METimer moveTimer;
+        private CustomTimer missileShootCooldown;
+        private CustomTimer moveTimer;
         private bool movesRight;
         private bool movesLeft;
 
         public SergeantEnemyJet(Vector2 position, float speed) 
             : base("sergeant", position, speed, 10)
         {
-            shootTimer = new METimer(800);
-            missileShootCooldown = new METimer(7000);
+            shootTimer = new CustomTimer(800);
+            missileShootCooldown = new CustomTimer(7000);
 
             if(rand.Next(0,2) == 0)
             {
@@ -116,7 +116,7 @@ namespace JetWars
                     dotProduct >= 0.99f
                     )
                 {
-                    moveTimer = new METimer(1000);
+                    moveTimer = new CustomTimer(1000);
                     return;
                 }
 

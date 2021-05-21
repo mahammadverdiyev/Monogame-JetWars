@@ -8,16 +8,16 @@ namespace JetWars
     public abstract class Jet : Basic2D
     {
         public bool destroyed;
-        protected METimer shootTimer;
+        protected CustomTimer shootTimer;
 
         public bool isHit;
         protected bool canShoot;
 
         public float speed, hitDistance, health, maxHealth;
         protected Vector2 velocity;
-        public METimer hitTimer;
+        public CustomTimer hitTimer;
         protected Color jetColor;
-        protected METimer explosionTimer;
+        protected CustomTimer explosionTimer;
 
         public Jet(string PATH, Vector2 POSITION, Vector2 DIMENSION,float speed,
                         float _maxHealth) : base(PATH,POSITION,DIMENSION)
@@ -31,7 +31,7 @@ namespace JetWars
             health = _maxHealth;
             maxHealth = health;
 
-            hitTimer = new METimer(100);
+            hitTimer = new CustomTimer(100);
             destroyed = false;
             velocity = new Vector2(0, 0);
         }
@@ -76,7 +76,7 @@ namespace JetWars
                 speed = 0f;
                 canShoot = false;
                 model = Globals.content.Load<Texture2D>("explosion");
-                explosionTimer = new METimer(200);
+                explosionTimer = new CustomTimer(200);
             }
         }
 

@@ -5,11 +5,11 @@ namespace JetWars
     public class CorporalEnemyJet : EnemyJet, IRotatable
     {
 
-        private METimer missileShootCooldown;
+        private CustomTimer missileShootCooldown;
         public CorporalEnemyJet(Vector2 position,float speed) : base("corporal",position,speed,5.0f)
         {
-            shootTimer = new METimer(1000);
-            missileShootCooldown = new METimer(10000);
+            shootTimer = new CustomTimer(1000);
+            missileShootCooldown = new CustomTimer(10000);
             items.Add(new MedKit(position));
         }
 

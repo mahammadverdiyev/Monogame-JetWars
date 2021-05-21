@@ -1,17 +1,16 @@
-﻿using JetWars.Source.Gameplay.Models.Items;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 namespace JetWars
 {
     public class GeneralEnemyJet : EnemyJet
     {
-        private METimer moveTimer;
+        private CustomTimer moveTimer;
         bool movesRight, movesLeft;
         public GeneralEnemyJet(Vector2 position, float speed)
             : base("general", position, speed, 30)
         {
-            shootTimer = new METimer(1000);
+            shootTimer = new CustomTimer(1000);
             movesRight = true;
             movesLeft = false;
 
@@ -111,7 +110,7 @@ namespace JetWars
                     //    movesLeft = false;
                     //    movesRight = true;
                     //}
-                    moveTimer = new METimer(500);
+                    moveTimer = new CustomTimer(500);
                     return;
                 }
 

@@ -35,8 +35,8 @@ namespace JetWars
                 float layerDepth = 0.0f;
                 Vector2 origin = new Vector2(model.Bounds.Width / 2, model.Bounds.Height / 2);
 
-                Globals.spriteBatch.Draw(model,destinationRectangle,sourceRectangle,color,
-                                               rotation, origin, effects,layerDepth);
+                Globals.spriteBatch.Draw(model, destinationRectangle, sourceRectangle, color,
+                                               rotation, origin, effects, layerDepth);
             }
         }
         public virtual void Draw(Vector2 OFFSET, Vector2 ORIGIN,Color color)

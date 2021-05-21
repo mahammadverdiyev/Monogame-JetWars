@@ -4,7 +4,7 @@ namespace JetWars
 {
     public abstract class ModelSpawner : Basic2D
     {
-        public METimer spawnTimer;
+        public CustomTimer spawnTimer;
         public int maxModelCount;
         public int modelCounter;
         public bool finished;
@@ -15,7 +15,7 @@ namespace JetWars
             finished = false;
             modelCounter = 0;
             this.maxModelCount = maxModelCount < 0 ? int.MaxValue : maxModelCount;
-            spawnTimer = new METimer(spawnInterval);
+            spawnTimer = new CustomTimer(spawnInterval);
         }
 
         public override void Update()

@@ -1,5 +1,4 @@
-﻿using JetWars.Source.Gameplay.Models.Items;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System.Diagnostics;
 
 namespace JetWars
@@ -7,14 +6,14 @@ namespace JetWars
     public class MajorEnemyJet : EnemyJet, IRotatable
     {
         private bool movesLeft, movesRight;
-        private METimer moveTimer;
+        private CustomTimer moveTimer;
         int left, right;
         public MajorEnemyJet(Vector2 position,float speed)
         :base("major",position,speed,15f)
         {
             right = (int)(Globals.screenWidth - position.X + dimension.X);
             left = (int)position.X;
-            shootTimer = new METimer(300);
+            shootTimer = new CustomTimer(300);
 
             int moveTimerInterval;
 
@@ -30,7 +29,7 @@ namespace JetWars
                 movesLeft = true;
                 moveTimerInterval = (int)(left / speed) * 14;
             }
-            moveTimer = new METimer(moveTimerInterval);
+            moveTimer = new CustomTimer(moveTimerInterval);
 
             items.Add(new Shield(position));
             items.Add(new AccuracyIncreaser(position));

@@ -8,8 +8,11 @@ namespace JetWars
 
         private World world;
 
-        public GamePlay()
+        private Game game;
+
+        public GamePlay(Game game)
         {
+            this.game = game;
             gameState = 0;
 
             ResetWorld(null);
@@ -23,7 +26,7 @@ namespace JetWars
 
         public virtual void ResetWorld(object data)
         {
-            world = new World(ResetWorld);
+            world = new World(game, ResetWorld);
         }
         public virtual void Draw()
         {

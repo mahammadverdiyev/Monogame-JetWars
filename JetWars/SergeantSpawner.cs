@@ -8,7 +8,7 @@ namespace JetWars
         : base("circle", position, dimension, maxModelCount, 3000)
   
         {
-            spawnTimer = new METimer(10000);
+            spawnTimer = new CustomTimer(10000);
         }
 
         public override void Update()

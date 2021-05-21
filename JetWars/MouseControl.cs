@@ -1,18 +1,6 @@
-﻿#region Includes
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using System.Drawing;
-
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Input.Touch;
-using Microsoft.Xna.Framework.Media;
-using JetWars.Source.Engine;
-#endregion
 
 namespace JetWars
 {
@@ -105,7 +93,9 @@ namespace JetWars
 
         public virtual bool LeftClick()
         {
-            if( newMouse.LeftButton == ButtonState.Pressed && oldMouse.LeftButton != ButtonState.Pressed && newMouse.Position.X >= 0 && newMouse.Position.X <= Globals.screenWidth && newMouse.Position.Y >= 0 && newMouse.Position.Y <= Globals.screenHeight)
+            if( newMouse.LeftButton == ButtonState.Pressed && oldMouse.LeftButton != ButtonState.Pressed &&
+                newMouse.Position.X >= 0 && newMouse.Position.X <= Globals.screenWidth && newMouse.Position.Y >= 0 && 
+                newMouse.Position.Y <= Globals.screenHeight)
             {
                 return true;
             }
@@ -174,7 +164,7 @@ namespace JetWars
 
         public virtual bool RightClickRelease()
         {
-            if( newMouse.RightButton == ButtonState.Released && oldMouse.RightButton == ButtonState.Pressed)
+            if(newMouse.RightButton == ButtonState.Released && oldMouse.RightButton == ButtonState.Pressed)
             {
                 dragging = false;
                 return true;

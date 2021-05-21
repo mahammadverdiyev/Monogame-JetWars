@@ -9,7 +9,7 @@ namespace JetWars
         public GeneralSpawner(Vector2 position, Vector2 dimension, int maxModelCount)
         : base("circle", position, dimension, maxModelCount,20000)
         {
-            spawnTimer = new METimer(100);
+            spawnTimer = new CustomTimer(100);
         }
 
         public override void Update()

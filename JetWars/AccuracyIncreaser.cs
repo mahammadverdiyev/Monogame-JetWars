@@ -1,20 +1,6 @@
-﻿using JetWars.Source.Gameplay.Models.Abstracts;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-using JetWars.Source;
-using JetWars.Source.Engine;
-using JetWars.Source.Gameplay;
-using JetWars.Source.Gameplay.Models;
-using JetWars.Source.Gameplay.Models.Jets;
-using JetWars.Source.Gameplay.Spawners;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
 
-namespace JetWars.Source.Gameplay.Models.Items
+namespace JetWars
 {
     public class AccuracyIncreaser : Item
     {

@@ -24,8 +24,11 @@ namespace JetWars
 
         private Globals.PassObject ResetWorld;
 
-        public World(Globals.PassObject resetWorld)
+        private Game game;
+
+        public World(Game game, Globals.PassObject resetWorld)
         {
+            this.game = game;
             ResetWorld = resetWorld;
 
             playerJet = new PlayerJet();
@@ -33,8 +36,8 @@ namespace JetWars
             GameGlobals.playerBullets = new List<Bullet2D>();
             destroyedJetCount = 0;
 
-            bg1 = new ScrollingBackground("star1",new Rectangle(0,0,900,675), 1);
-            bg2 = new ScrollingBackground("star2", new Rectangle(0, -675,900,675), 1);
+            bg1 = new ScrollingBackground("star1",new Rectangle(0, 0, 900, 675), 1);
+            bg2 = new ScrollingBackground("star2", new Rectangle(0, -675, 900, 675), 1);
             GameGlobals.PassBullet = AddBullet;
             GameGlobals.PassEnemyJet = AddEnemyJet;
             offset = Vector2.Zero;
@@ -44,7 +47,7 @@ namespace JetWars
 
         public void Update()
         {
-            if(!playerJet.destroyed)
+            if(!playerJet.destroyed && Globals.state == State.Playing)
             {
                 AdjustBackground();
 
@@ -65,6 +68,11 @@ namespace JetWars
                 }
             }
             ui.Update(this);
+
+            if (Globals.state == State.ExitButtonClicked)
+            {
+                game.Exit();
+            }
         }
         private void UpdateItems()
         {
