@@ -65,13 +65,12 @@ namespace JetWars
             }
             else
             {
-                if (Globals.keyboard.GetPress("Enter"))
+                if (playerJet.destroyed)
                 {
                     ResetWorld(null);
                 }
             }
             ui.Update(this);
-            //if(Globals.currentState )
             if (Globals.currentState == State.ExitButtonClicked)
             {
                 game.Exit();
