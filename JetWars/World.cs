@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace JetWars
 {
@@ -14,7 +15,8 @@ namespace JetWars
         public int DestroyedJetCount => destroyedJetCount;
         
         private UserInterface ui;
-            
+        private ItemSpawner itemSpawner = new ItemSpawner();
+
         private Vector2 offset;
 
         private List<Bullet2D> bullets = new List<Bullet2D>();
@@ -47,7 +49,7 @@ namespace JetWars
 
         public void Update()
         {
-            if(!playerJet.destroyed && Globals.state == State.Playing)
+            if(!playerJet.destroyed && Globals.currentState == State.Playing)
             {
                 AdjustBackground();
 
@@ -59,23 +61,28 @@ namespace JetWars
                 UpdateBullets();
                 UpdateEnemyJets();
                 playerJet.Update();
+                itemSpawner.Update();
             }
             else
             {
-                if(Globals.keyboard.GetPress("Enter"))
+                if (Globals.keyboard.GetPress("Enter"))
                 {
                     ResetWorld(null);
                 }
             }
             ui.Update(this);
-
-            if (Globals.state == State.ExitButtonClicked)
+            //if(Globals.currentState )
+            if (Globals.currentState == State.ExitButtonClicked)
             {
                 game.Exit();
             }
         }
         private void UpdateItems()
         {
+            Item randItem = itemSpawner.GetRandomItem();
+            if (randItem != null)
+                items.Add(randItem);
+
             for (int i = 0; i < items.Count; i++)
             {
                 items[i].Update();
@@ -123,7 +130,7 @@ namespace JetWars
                 enemies[i].Update();
                 if (enemies[i].destroyed)
                 {
-                    Item itemToThrow = RandomItemSpawner.GetRandomItem((EnemyJet)enemies[i]);
+                    Item itemToThrow = itemSpawner.GetRandomItem((EnemyJet)enemies[i]);
                     items.Add(itemToThrow);
                     destroyedJetCount++;
                     enemies.RemoveAt(i);
@@ -154,12 +161,16 @@ namespace JetWars
         {
             bg1.Draw(Vector2.Zero);
             bg2.Draw(Vector2.Zero);
-            playerJet.Draw(OFFSET);
-            bullets.ForEach(projectile => projectile.Draw(offset));
 
-            spawners.ForEach(location => location.Draw(offset));
-            items.ForEach(item => item.Draw(offset));
-            enemies.ForEach(enemy => enemy.Draw(offset));
+            if (Globals.currentState == State.Playing)
+            {
+                playerJet.Draw(OFFSET);
+                bullets.ForEach(projectile => projectile.Draw(offset));
+
+                spawners.ForEach(location => location.Draw(offset));
+                items.ForEach(item => item.Draw(offset));
+                enemies.ForEach(enemy => enemy.Draw(offset));
+            }
 
             ui.Draw(this);
         }

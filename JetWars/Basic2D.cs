@@ -28,6 +28,9 @@ namespace JetWars
             {
                 Rectangle destinationRectangle = new Rectangle((int)(position.X + OFFSET.X), (int)(position.Y + OFFSET.Y),
                                                                (int)dimension.X, (int)dimension.Y);
+
+                modelBox = destinationRectangle;
+
                 Rectangle? sourceRectangle = null;
                 Color color = Color.White;
                 float rotation = this.rotation;

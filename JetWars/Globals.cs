@@ -14,6 +14,7 @@ namespace JetWars
         public static KeyBoardControl keyboard;
         public static MouseControl mouse;
         public static GameTime gameTime;
-        public static State state;
+        public static State currentState;
+        public static State oldState;
     }
 }

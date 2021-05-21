@@ -4,8 +4,6 @@ namespace JetWars
 {
     public class GamePlay
     {
-        private int gameState;
-
         private World world;
 
         private Game game;
@@ -13,14 +11,12 @@ namespace JetWars
         public GamePlay(Game game)
         {
             this.game = game;
-            gameState = 0;
 
             ResetWorld(null);
         }
 
         public virtual void Update()
         {
-            if(gameState == 0)
                 world.Update();
         }
 
@@ -30,7 +26,6 @@ namespace JetWars
         }
         public virtual void Draw()
         {
-            if (gameState == 0)
                 world.Draw(Vector2.Zero);
         }
     }

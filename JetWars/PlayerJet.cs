@@ -32,6 +32,12 @@ namespace JetWars
         {
             base.Update();
 
+            if (destroyed)
+            {
+                Globals.oldState = Globals.currentState;
+                Globals.currentState = State.StartMenu;
+            }
+
             missileShootCooldown.UpdateTimer();
             shootTimer.UpdateTimer();
 

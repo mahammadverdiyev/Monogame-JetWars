@@ -13,7 +13,7 @@ namespace JetWars
 
         public override void Draw(Vector2 OFFSET)
         {
-            //Globals.spriteBatch.Draw(model, backgroundBox, Color.White);
+            Globals.spriteBatch.Draw(model, backgroundBox, Color.White);
         }
     }
 }

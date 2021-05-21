@@ -5,7 +5,7 @@ namespace JetWars
     public abstract class Item : Basic2D
     {
         private bool taken;
-        PlayerJet jet;
+        public PlayerJet jet;
 
         public bool Taken { get { return taken;  } }
     

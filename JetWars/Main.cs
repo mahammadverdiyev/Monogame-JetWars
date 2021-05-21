@@ -28,15 +28,12 @@ namespace JetWars
 
         protected override void Initialize()
         {
-            Globals.screenWidth = 900;
-            Globals.screenHeight = 675;
+            base.Initialize();
 
             _graphics.PreferredBackBufferWidth = Globals.screenWidth;
             _graphics.PreferredBackBufferHeight = Globals.screenHeight;
-
             _graphics.ApplyChanges();
 
-            base.Initialize();
         }
 
         protected override void LoadContent()
@@ -54,12 +51,13 @@ namespace JetWars
 
         private void InitializeGlobals()
         {
+            Globals.screenWidth = 900;
+            Globals.screenHeight = 675;
             Globals.content = Content;
             Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
             Globals.mouse = new MouseControl();
-            Globals.screenWidth = GraphicsDevice.Viewport.Width;
-            Globals.screenHeight = GraphicsDevice.Viewport.Height;
-            Globals.state = State.StartMenu;
+            Globals.currentState = State.StartMenu;
+            Globals.oldState = State.StartMenu;
         }
 
         protected override void Update(GameTime gameTime)
