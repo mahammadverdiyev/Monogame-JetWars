@@ -21,6 +21,7 @@ namespace JetWars
 
         private Button startButton;
         private Button exitButton;
+        private Texture2D jetUITexture;
 
         public UserInterface()
         {
@@ -28,8 +29,10 @@ namespace JetWars
 
             healthBar = new DisplayBar(new Vector2(200,20), 2, Color.Green);
 
-            startButton = new Button("start_button", new Vector2(Globals.screenWidth / 2 - 100, Globals.screenHeight / 2 - 85), new Vector2(400, 150));
-            exitButton = new Button("exit_button", new Vector2(Globals.screenWidth / 2 - 100, Globals.screenHeight / 2 + 15), new Vector2(400, 150));
+            startButton = new Button("start_button", new Vector2(Globals.screenWidth / 2 + 150, Globals.screenHeight / 2 - 85), new Vector2(400, 150));
+            exitButton = new Button("exit_button", new Vector2(Globals.screenWidth / 2 + 150, Globals.screenHeight / 2 + 15), new Vector2(400, 150));
+
+            jetUITexture = Globals.content.Load<Texture2D>("background_jet");
         }
 
         public void Update(World world)
@@ -49,6 +52,13 @@ namespace JetWars
             switch (Globals.currentState)
 			{
 				case State.StartMenu:
+                    Globals.spriteBatch.Draw(jetUITexture, new Rectangle(
+                        30, 
+                        Globals.screenHeight / 2 - 200,
+                        Globals.screenWidth / 2 + 80, 
+                        Globals.screenHeight / 2 + 80), 
+                        Color.White
+                        );
                     startButton.Draw(Vector2.Zero);
                     exitButton.Draw(Vector2.Zero);
                     break;
@@ -76,37 +86,18 @@ namespace JetWars
                     Globals.spriteBatch.DrawString(font, str, new Vector2(Globals.screenWidth - strDimensions.X - margin_right, Globals.screenHeight - 1 * strDimensions.Y), Color.White);
                     break;
 			}
-
-            //if (GameGlobals.playerJet.destroyed)
-            //{
-            //    str = $"Press Enter to Restart";
-            //    strDimensions = font.MeasureString(str);
-            //    Globals.spriteBatch.DrawString(font, str, new Vector2(Globals.screenWidth / 2 - strDimensions.X / 2, Globals.screenHeight / 2), Color.White);
-            //}
         }
 
 		private void HandleMenuClicks()
 		{
             if(Globals.mouse.LeftClick())
             {
-                //if (Globals.mouse.newMousePos.X >= startButton.position.X &&
-                //    Globals.mouse.newMousePos.X <= startButton.position.X + startButton.dimension.X &&
-                //    Globals.mouse.newMousePos.Y >= startButton.position.Y &&
-                //    Globals.mouse.newMousePos.Y <= startButton.position.Y + startButton.dimension.Y
-                //    )
-
                 if (startButton.isHovering)
                 {
                     Debug.WriteLine("Start Button Clicked");
                     Globals.oldState = Globals.currentState;
                     Globals.currentState = State.Playing;
                 }
-
-                //else if (Globals.mouse.newMousePos.X >= exitButton.position.X &&
-                //    Globals.mouse.newMousePos.X <= exitButton.position.X + exitButton.dimension.X &&
-                //    Globals.mouse.newMousePos.Y >= exitButton.position.Y &&
-                //    Globals.mouse.newMousePos.Y <= exitButton.position.Y + exitButton.dimension.Y
-                //    )
 
                 else if (exitButton.isHovering)
                 {

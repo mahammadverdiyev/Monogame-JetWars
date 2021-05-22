@@ -18,9 +18,9 @@ namespace JetWars
         public int BulletFireSpeed => bulletFireSpeed;
         public int AccuracyValue => accuracyValue;
 
-        public PlayerJet() : base("jet", new Vector2(300, 300), new Vector2(60, 60),2.5f,20f)
+        public PlayerJet() : base("jet", new Vector2(300, 300), new Vector2(60, 60), 2.5f, 20f)
         {
-            accuracyValue = 6;
+            accuracyValue = 12;
             bulletFireSpeed = 700;
             missileFireSpeed = 5000;
             isShieldActive = false;
@@ -132,7 +132,7 @@ namespace JetWars
                 deflection = -deflection;
 
             Bullet2D bullet =
-                new StandardBullet(new Vector2(position.X, position.Y), this, new Vector2(Globals.mouse.newMousePos.X + deflection, Globals.mouse.newMousePos.Y), rotation,14.0f);
+                new ImprovedBullet(new Vector2(position.X, position.Y), this, new Vector2(Globals.mouse.newMousePos.X + deflection, Globals.mouse.newMousePos.Y), rotation, 14.0f);
 
             GameGlobals.PassBullet(bullet);
         }

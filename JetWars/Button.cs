@@ -33,11 +33,10 @@ namespace JetWars
             modelBox = destinationRectangle;
 
             Rectangle? sourceRectangle = null;
-            Color color = isHovering ? new Color(195,195,195) : Color.White;
+            Color color = isHovering ? new Color(195, 195, 195) : Color.White;
             float rotation = this.rotation;
             SpriteEffects effects = new SpriteEffects();
             float layerDepth = 0.0f;
-            //Vector2 origin = new Vector2(model.Bounds.Width / 2, model.Bounds.Height / 2);
             Vector2 origin = Vector2.Zero;
 
             Globals.spriteBatch.Draw(model, destinationRectangle, sourceRectangle, color,

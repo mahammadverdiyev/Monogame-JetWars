@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace JetWars
 {
 	public class ItemSpawner
 	{
-		Random random = new Random();
-		CustomTimer spawnTimer;
+		private Random random = new Random();
+		private CustomTimer spawnTimer;
 		private Item lastSpawnedItem;
-
-		List<Type> spawnableItemTypes = new List<Type>();
+		private List<Type> spawnableItemTypes = new List<Type>();
 			
 		public ItemSpawner()
 		{
@@ -20,7 +19,6 @@ namespace JetWars
 			spawnableItemTypes.Add(typeof(FireSpeedIncreaser));
 			spawnableItemTypes.Add(typeof(AccuracyIncreaser));
 			spawnableItemTypes.Add(typeof(Shield));
-		
 			spawnTimer = new CustomTimer(2000);
 		}
 
