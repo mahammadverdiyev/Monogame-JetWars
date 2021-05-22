@@ -178,7 +178,7 @@ namespace JetWars
             bg1.Draw(Vector2.Zero);
             bg2.Draw(Vector2.Zero);
 
-            if (Globals.currentState == State.Playing)
+            if (Globals.currentState == State.Playing || Globals.currentState == State.Paused)
             {
                 playerJet.Draw(OFFSET);
                 bullets.ForEach(projectile => projectile.Draw(offset));

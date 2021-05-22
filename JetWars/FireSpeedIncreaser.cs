@@ -5,7 +5,7 @@ namespace JetWars
     public class FireSpeedIncreaser : Item
     {
         public FireSpeedIncreaser(Vector2 position)
-        : base("fire-speed", position, new Vector2(25, 25))
+        : base("fire-speed", position, new Vector2(40,40))
         {
 
         }

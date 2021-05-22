@@ -18,7 +18,8 @@ namespace JetWars
         public int BulletFireSpeed => bulletFireSpeed;
         public int AccuracyValue => accuracyValue;
 
-        public PlayerJet() : base("jet", new Vector2(300, 300), new Vector2(60, 60), 2.5f, 20f)
+        public PlayerJet() : base("jet", new Vector2(Globals.screenWidth / 2, Globals.screenHeight / 2 + 100), 
+            new Vector2(60, 60), 2.5f, 20f)
         {
             accuracyValue = 12;
             bulletFireSpeed = 700;
@@ -34,7 +35,6 @@ namespace JetWars
 
             if (destroyed)
             {
-                Globals.oldState = Globals.currentState;
                 Globals.currentState = State.StartMenu;
             }
 

@@ -33,7 +33,6 @@ namespace JetWars
             _graphics.PreferredBackBufferWidth = Globals.screenWidth;
             _graphics.PreferredBackBufferHeight = Globals.screenHeight;
             _graphics.ApplyChanges();
-
         }
 
         protected override void LoadContent()
@@ -57,13 +56,12 @@ namespace JetWars
             Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
             Globals.mouse = new MouseControl();
             Globals.currentState = State.StartMenu;
-            Globals.oldState = State.StartMenu;
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (Globals.keyboard.GetPress("Escape"))
-                Exit();
+            if (Globals.keyboard.GetPress("Escape") && Globals.currentState == State.Playing)
+                    Globals.currentState = State.Paused;
 
             Globals.gameTime = gameTime;
             Globals.keyboard.Update();

@@ -22,12 +22,14 @@ namespace JetWars
         protected SoundEffect shootEffect;
         protected SoundEffect explosionEffect;
         protected SoundEffect missileEffect;
+        protected SoundEffect hitEffect;
         public Jet(string PATH, Vector2 POSITION, Vector2 DIMENSION,float speed,
                         float _maxHealth) : base(PATH,POSITION,DIMENSION)
         {
             shootEffect = Globals.content.Load<SoundEffect>("laser-shoot");
             explosionEffect = Globals.content.Load<SoundEffect>("explosion-effect");
             missileEffect = Globals.content.Load<SoundEffect>("missile-effect");
+            hitEffect = Globals.content.Load<SoundEffect>("hit-effect");
             isHit = false;
             canShoot = true;
             this.speed = speed;
@@ -67,6 +69,7 @@ namespace JetWars
 
         public virtual void GetHit(float damage)
         {
+
             if (hitTimer.Test() && explosionTimer == null)
             {
                 isHit = true;
@@ -75,8 +78,11 @@ namespace JetWars
                 dimension.Y += 5;
                 hitTimer.ResetToZero();
             }
-            
+
             health -= damage;
+
+            if(health > 0)
+                hitEffect.Play();
 
             if (health <= 0 && explosionTimer == null)
             {

@@ -102,12 +102,12 @@ namespace JetWars
                 Bullet2D leftMissile =
                         new Missile(new Vector2(leftX,leftY),
                         this, new Vector2(GameGlobals.playerJet.position.X + deflection,
-                        GameGlobals.playerJet.position.Y), rotation, 5.0f);
+                        GameGlobals.playerJet.position.Y), rotation, 6.0f);
                
                 Bullet2D rightMissile =
                         new Missile(new Vector2(rightX,rightY),
                         this, new Vector2(GameGlobals.playerJet.position.X + deflection,
-                        GameGlobals.playerJet.position.Y), rotation, 5.0f);
+                        GameGlobals.playerJet.position.Y), rotation, 6.0f);
 
                 GameGlobals.PassBullet(leftMissile);
                 GameGlobals.PassBullet(rightMissile);

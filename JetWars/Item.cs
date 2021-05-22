@@ -10,7 +10,7 @@ namespace JetWars
         public bool Taken { get { return taken;  } }
     
         public Item(string path,Vector2 position, Vector2 dimension)
-        : base(path,position,new Vector2(30,30))
+        : base(path,position,dimension)
         {
             jet = GameGlobals.playerJet;
             taken = false;

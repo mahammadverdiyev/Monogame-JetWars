@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System.Diagnostics;
 
 namespace JetWars
 {
@@ -57,7 +56,6 @@ namespace JetWars
 
             if(moveTimer.Test())
             {
-                Debug.WriteLine("TEST");
                 movesLeft = !movesLeft;
                 movesRight = !movesRight;
                 int time;

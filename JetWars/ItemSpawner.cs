@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
@@ -64,8 +63,6 @@ namespace JetWars
 				item.position = new Vector2(randX, randY);
 				item.jet = GameGlobals.playerJet;
 				lastSpawnedItem = item;
-
-				Debug.WriteLine("SPAWNEDDD");
 
 				spawnTimer.ResetToZero();
 				return item;
