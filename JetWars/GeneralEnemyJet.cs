@@ -205,6 +205,7 @@ namespace JetWars
                 GameGlobals.PassBullet(rightFirstBullet);
                 GameGlobals.PassBullet(leftSecondBullet);
                 GameGlobals.PassBullet(rigtSecondBullet);
+                missileEffect.Play();
             }
 
         }

@@ -1,5 +1,6 @@
 ﻿#region Includes
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 #endregion
 
@@ -18,10 +19,15 @@ namespace JetWars
         public CustomTimer hitTimer;
         protected Color jetColor;
         protected CustomTimer explosionTimer;
-
+        protected SoundEffect shootEffect;
+        protected SoundEffect explosionEffect;
+        protected SoundEffect missileEffect;
         public Jet(string PATH, Vector2 POSITION, Vector2 DIMENSION,float speed,
                         float _maxHealth) : base(PATH,POSITION,DIMENSION)
         {
+            shootEffect = Globals.content.Load<SoundEffect>("laser-shoot");
+            explosionEffect = Globals.content.Load<SoundEffect>("explosion-effect");
+            missileEffect = Globals.content.Load<SoundEffect>("missile-effect");
             isHit = false;
             canShoot = true;
             this.speed = speed;
@@ -46,6 +52,7 @@ namespace JetWars
                 if (explosionTimer.Test())
                 {
                     destroyed = true;
+                    explosionEffect.Play();
                 }
             }
 

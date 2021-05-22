@@ -92,6 +92,7 @@ namespace JetWars
                  new Missile(new Vector2(position.X, position.Y), this, new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y), rotation, 10);
 
                 GameGlobals.PassBullet(missile);
+                missileEffect.Play();
                 missileShootCooldown.ResetToZero();
         }
 
@@ -135,6 +136,7 @@ namespace JetWars
                 new ImprovedBullet(new Vector2(position.X, position.Y), this, new Vector2(Globals.mouse.newMousePos.X + deflection, Globals.mouse.newMousePos.Y), rotation, 14.0f);
 
             GameGlobals.PassBullet(bullet);
+            shootEffect.Play();
         }
 
         private void MoveJet()

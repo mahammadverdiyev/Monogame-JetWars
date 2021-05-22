@@ -8,6 +8,7 @@ namespace JetWars
         public MajorSpawner(Vector2 position, Vector2 dimension, int maxModelCount) 
             : base("circle", position, dimension, maxModelCount,5000)
         {
+            
         }
 
         public override void Update()

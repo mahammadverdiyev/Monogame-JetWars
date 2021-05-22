@@ -64,6 +64,7 @@ namespace JetWars
                         GameGlobals.playerJet.position.Y), rotation,8.0f);
 
                 GameGlobals.PassBullet(bullet);
+                shootEffect.Play();
                 shootTimer.ResetToZero();
             }
 
@@ -110,7 +111,7 @@ namespace JetWars
 
                 GameGlobals.PassBullet(leftMissile);
                 GameGlobals.PassBullet(rightMissile);
-
+                missileEffect.Play();
                 missileShootCooldown.ResetToZero();
             }
         }

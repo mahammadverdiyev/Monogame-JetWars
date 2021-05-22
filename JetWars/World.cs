@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -18,6 +19,9 @@ namespace JetWars
         private ItemSpawner itemSpawner = new ItemSpawner();
 
         private Vector2 offset;
+
+        private Song mainMenuSong;
+        private bool songStarted = false;
 
         private List<Bullet2D> bullets = new List<Bullet2D>();
         private List<Jet> enemies = new List<Jet>();
@@ -44,13 +48,26 @@ namespace JetWars
             GameGlobals.PassEnemyJet = AddEnemyJet;
             offset = Vector2.Zero;
             spawners.Add(new SergeantSpawner(new Vector2(200, 200), new Vector2(35, 35), 100));
+            spawners.Add(new KamikazeSpawner(new Vector2(-100, -100), new Vector2(35, 35), 5));
+            spawners.Add(new MajorSpawner(new Vector2(300, -100), new Vector2(35, 35), 2));
+            mainMenuSong = Globals.content.Load<Song>("main-music");
             ui = new UserInterface();
         }
 
         public void Update()
         {
+            if(Globals.currentState == State.StartMenu && !songStarted)
+            {
+                songStarted = true;
+                MediaPlayer.Play(mainMenuSong);
+            }
             if(!playerJet.destroyed && Globals.currentState == State.Playing)
             {
+                if(songStarted)
+                {
+                    songStarted = false;
+                    MediaPlayer.Stop();
+                }
                 AdjustBackground();
 
                 bg1.Update();

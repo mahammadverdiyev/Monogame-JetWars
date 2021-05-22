@@ -104,6 +104,7 @@ namespace JetWars
                         GameGlobals.playerJet.position.Y), rotation, 12.0f);
 
                 GameGlobals.PassBullet(bullet);
+                shootEffect.Play();
                 shootTimer.ResetToZero();
             }
         }

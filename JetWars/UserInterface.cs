@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Diagnostics;
 
@@ -22,6 +24,8 @@ namespace JetWars
         private Button startButton;
         private Button exitButton;
         private Texture2D jetUITexture;
+        private Texture2D titleUITexture;
+        private Song mainMenuSound;
 
         public UserInterface()
         {
@@ -33,6 +37,8 @@ namespace JetWars
             exitButton = new Button("exit_button", new Vector2(Globals.screenWidth / 2 + 150, Globals.screenHeight / 2 + 15), new Vector2(400, 150));
 
             jetUITexture = Globals.content.Load<Texture2D>("background_jet");
+            titleUITexture = Globals.content.Load<Texture2D>("title");
+            
         }
 
         public void Update(World world)
@@ -57,6 +63,13 @@ namespace JetWars
                         Globals.screenHeight / 2 - 200,
                         Globals.screenWidth / 2 + 80, 
                         Globals.screenHeight / 2 + 80), 
+                        Color.White
+                        );
+                    Globals.spriteBatch.Draw(titleUITexture, new Rectangle(
+                        Globals.screenWidth / 2 + 100,
+                        50,
+                        293,
+                        172),
                         Color.White
                         );
                     startButton.Draw(Vector2.Zero);
