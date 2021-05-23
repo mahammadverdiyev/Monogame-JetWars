@@ -18,6 +18,7 @@ namespace JetWars
 			spawnableItemTypes.Add(typeof(FireSpeedIncreaser));
 			spawnableItemTypes.Add(typeof(AccuracyIncreaser));
 			spawnableItemTypes.Add(typeof(Shield));
+			spawnableItemTypes.Add(typeof(MaxHealthIncreaser));
 			spawnTimer = new CustomTimer(3000);
 		}
 
@@ -40,6 +41,8 @@ namespace JetWars
 				return new FireSpeedIncreaser(Vector2.Zero);
 			else if (type == typeof(AccuracyIncreaser))
 				return new AccuracyIncreaser(Vector2.Zero);
+			else if (type == typeof(MaxHealthIncreaser))
+				return new MaxHealthIncreaser(Vector2.Zero);
 			else
 				return new Shield(Vector2.Zero);
 		}

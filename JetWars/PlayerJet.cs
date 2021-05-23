@@ -55,7 +55,7 @@ namespace JetWars
             if (Globals.mouse.RightClick() && missileShootCooldown.Test())
             {
                 ShootMissile();
-                missileShootCooldown.Reset();
+                missileShootCooldown.Reset(10000 - missileFireSpeed);
             }
         }
 
@@ -105,7 +105,7 @@ namespace JetWars
         {
             if(bulletFireSpeed + 50 <= 1000)
                 bulletFireSpeed += 50;
-            if (missileFireSpeed + 200 <= 8000)
+            if (missileFireSpeed + 200 <= 9500)
                 missileFireSpeed += 200;
         }
         public void IncreaseAccuracy()
