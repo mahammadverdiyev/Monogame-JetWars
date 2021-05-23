@@ -89,7 +89,7 @@ namespace JetWars
         private void ShootMissile()
         {
                 Missile missile =
-                 new Missile(new Vector2(position.X, position.Y), this, new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y), rotation, 10);
+                 new Missile(new Vector2(position.X, position.Y), this, new Vector2(Globals.mouse.newMousePos.X, Globals.mouse.newMousePos.Y), rotation, 12);
 
                 GameGlobals.PassBullet(missile);
                 missileEffect.Play();
