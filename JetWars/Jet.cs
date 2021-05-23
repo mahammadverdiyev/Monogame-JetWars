@@ -23,6 +23,7 @@ namespace JetWars
         protected SoundEffect explosionEffect;
         protected SoundEffect missileEffect;
         protected SoundEffect hitEffect;
+
         public Jet(string PATH, Vector2 POSITION, Vector2 DIMENSION,float speed,
                         float _maxHealth) : base(PATH,POSITION,DIMENSION)
         {

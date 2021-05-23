@@ -21,7 +21,7 @@ namespace JetWars
         public PlayerJet() : base("jet", new Vector2(Globals.screenWidth / 2, Globals.screenHeight / 2 + 100), 
             new Vector2(60, 60), 2.5f, 20f)
         {
-            accuracyValue = 12;
+            accuracyValue = 10;
             bulletFireSpeed = 700;
             missileFireSpeed = 5000;
             isShieldActive = false;
@@ -105,8 +105,8 @@ namespace JetWars
         {
             if(bulletFireSpeed + 50 <= 1000)
                 bulletFireSpeed += 50;
-            if (missileFireSpeed + 100 <= 7000)
-                missileFireSpeed += 100;
+            if (missileFireSpeed + 200 <= 8000)
+                missileFireSpeed += 200;
         }
         public void IncreaseAccuracy()
         {

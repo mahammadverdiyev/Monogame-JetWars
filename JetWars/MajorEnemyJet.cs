@@ -30,11 +30,11 @@ namespace JetWars
             }
             moveTimer = new CustomTimer(moveTimerInterval);
 
+            itemChanceToSpawn = 65;
             items.Add(new Shield(position));
             items.Add(new AccuracyIncreaser(position));
             items.Add(new FireSpeedIncreaser(position));
             items.Add(new MaxHealthIncreaser(position));
-            items.Add(new MedKit(position));
         }
 
 

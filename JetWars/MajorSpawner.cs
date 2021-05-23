@@ -5,8 +5,8 @@ namespace JetWars
     public class MajorSpawner : ModelSpawner
     {
 
-        public MajorSpawner(Vector2 position, Vector2 dimension, int maxModelCount) 
-            : base("circle", position, dimension, maxModelCount,5000)
+        public MajorSpawner(Vector2 position,int maxModelCount) 
+            : base("circle", position, new Vector2(25,25), maxModelCount,8000)
         {
             
         }

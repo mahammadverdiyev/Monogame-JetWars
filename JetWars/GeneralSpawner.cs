@@ -6,10 +6,9 @@ namespace JetWars
 {
     public class GeneralSpawner : ModelSpawner
     {
-        public GeneralSpawner(Vector2 position, Vector2 dimension, int maxModelCount)
-        : base("circle", position, dimension, maxModelCount,20000)
+        public GeneralSpawner(Vector2 position, int maxModelCount)
+        : base("circle", position, new Vector2(25,25), maxModelCount,10000)
         {
-            spawnTimer = new CustomTimer(100);
         }
 
         public override void Update()

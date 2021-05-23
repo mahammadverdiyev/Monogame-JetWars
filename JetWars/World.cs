@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -13,6 +15,9 @@ namespace JetWars
         private ScrollingBackground bg2;
 
         private int destroyedJetCount;
+        private int level;
+        private SpriteFont levelFont;
+        private CustomTimer levelShowTextTimer;
         public int DestroyedJetCount => destroyedJetCount;
         
         private UserInterface ui;
@@ -37,6 +42,10 @@ namespace JetWars
             this.game = game;
             ResetWorld = resetWorld;
 
+            levelFont = Globals.content.Load<SpriteFont>("LevelFont");
+            levelShowTextTimer = new CustomTimer(3000);
+            level = 1;
+
             playerJet = new PlayerJet();
             GameGlobals.playerJet = playerJet;
             GameGlobals.playerBullets = new List<Bullet2D>();
@@ -47,15 +56,14 @@ namespace JetWars
             GameGlobals.PassBullet = AddBullet;
             GameGlobals.PassEnemyJet = AddEnemyJet;
             offset = Vector2.Zero;
-            spawners.Add(new SergeantSpawner(new Vector2(200, 200), new Vector2(35, 35), 100));
-            spawners.Add(new KamikazeSpawner(new Vector2(-100, -100), new Vector2(35, 35), 5));
-            spawners.Add(new MajorSpawner(new Vector2(300, -100), new Vector2(35, 35), 2));
+            spawners.Add(new CorporalSpawner(new Vector2(200, -200), 20));
             mainMenuSong = Globals.content.Load<Song>("main-music");
             ui = new UserInterface();
         }
 
         public void Update()
         {
+
             if(Globals.currentState == State.StartMenu && !songStarted)
             {
                 songStarted = true;
@@ -63,11 +71,13 @@ namespace JetWars
             }
             if(!playerJet.destroyed && Globals.currentState == State.Playing)
             {
-                if(songStarted)
+                HandleLevel();
+                if (songStarted)
                 {
                     songStarted = false;
                     MediaPlayer.Stop();
                 }
+
                 AdjustBackground();
 
                 bg1.Update();
@@ -93,6 +103,63 @@ namespace JetWars
                 game.Exit();
             }
         }
+
+        private void HandleLevel()
+        {
+            levelShowTextTimer.UpdateTimer();
+
+            if(enemies.Count == 0 && spawners.Count == 0)
+            {
+                Random r = new Random();
+                level++;
+                spawners.Clear();
+                switch (level)
+                {
+                    case 2:
+                        spawners.Add(new CorporalSpawner(new Vector2(r.Next(0, Globals.screenWidth),
+                            -r.Next(100, 300)), 10));     
+                        spawners.Add(new KamikazeSpawner(new Vector2(r.Next(-300, Globals.screenWidth + 300),
+                            -r.Next(100, 300)), 3));
+                        break;
+                    case 3:
+                        spawners.Add(new CorporalSpawner(new Vector2(r.Next(0, Globals.screenWidth),
+                              -r.Next(100, 300)), 5));
+                        spawners.Add(new SergeantSpawner(new Vector2(r.Next(0, Globals.screenWidth),
+                                -r.Next(100, 300)), 10));
+                        break;
+                    case 4:
+                        spawners.Add(new MajorSpawner(new Vector2(r.Next(0, Globals.screenWidth),
+                                -r.Next(100, 300)), 10));
+                        spawners.Add(new SergeantSpawner(new Vector2(r.Next(0, Globals.screenWidth),
+                                -r.Next(100, 300)), 10));
+                        break;
+                    case 5:
+                        spawners.Add(new MajorSpawner(new Vector2(r.Next(0, Globals.screenWidth),
+                               -r.Next(100, 300)), 5));
+                        spawners.Add(new GeneralSpawner(new Vector2(r.Next(0, Globals.screenWidth),
+                               -r.Next(100, 300)), 3));
+                        break;
+                    case 6:
+                        spawners.Add(new CorporalSpawner(new Vector2(r.Next(0, Globals.screenWidth),
+                            -r.Next(100, 300)), 10));
+                        spawners.Add(new SergeantSpawner(new Vector2(r.Next(0, Globals.screenWidth),
+                            -r.Next(100, 300)), 5));
+                        spawners.Add(new KamikazeSpawner(new Vector2(r.Next(-300, Globals.screenWidth + 300),
+                            -r.Next(100, 300)), 3));
+                        spawners.Add(new MajorSpawner(new Vector2(r.Next(0, Globals.screenWidth),
+                               -r.Next(100, 300)), 5));
+                        spawners.Add(new GeneralSpawner(new Vector2(r.Next(0, Globals.screenWidth),
+                               -r.Next(100, 300)), 5));
+                        break;
+                    default:
+                        Globals.currentState = State.StartMenu;
+                        GameGlobals.playerJet.destroyed = true;
+                        break;
+                }
+                levelShowTextTimer.ResetToZero();
+            }
+        }
+
         private void UpdateItems()
         {
             Item randItem = itemSpawner.GetRandomItem();
@@ -147,7 +214,12 @@ namespace JetWars
                 if (enemies[i].destroyed)
                 {
                     Item itemToThrow = itemSpawner.GetRandomItem((EnemyJet)enemies[i]);
-                    items.Add(itemToThrow);
+               
+                    if(itemToThrow != null)
+                    {
+                        itemToThrow.position = new Vector2(enemies[i].position.X, enemies[i].position.Y);
+                        items.Add(itemToThrow);
+                    }
                     destroyedJetCount++;
                     enemies.RemoveAt(i);
                     i--;
@@ -186,6 +258,15 @@ namespace JetWars
                 spawners.ForEach(location => location.Draw(offset));
                 items.ForEach(item => item.Draw(offset));
                 enemies.ForEach(enemy => enemy.Draw(offset));
+
+                if (Globals.currentState == State.Playing && !levelShowTextTimer.Test())
+                {
+                    string levelStr = $"Level {level}";
+                    Vector2 strDim = levelFont.MeasureString(levelStr);
+                    Globals.spriteBatch.DrawString(levelFont, levelStr, new Vector2(Globals.screenWidth / 2
+                         - strDim.X / 2,
+                        Globals.screenHeight / 2 - strDim.Y), Color.White);
+                }
             }
 
             ui.Draw(this);

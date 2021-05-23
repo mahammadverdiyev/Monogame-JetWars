@@ -4,11 +4,10 @@ namespace JetWars
 {
     public class SergeantSpawner : ModelSpawner
     {
-        public SergeantSpawner(Vector2 position, Vector2 dimension, int maxModelCount)
-        : base("circle", position, dimension, maxModelCount, 3000)
+        public SergeantSpawner(Vector2 position, int maxModelCount)
+        : base("circle", position, new Vector2(25,25), maxModelCount, 5000)
   
         {
-            spawnTimer = new CustomTimer(10000);
         }
 
         public override void Update()

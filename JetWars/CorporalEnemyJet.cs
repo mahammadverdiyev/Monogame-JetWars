@@ -6,8 +6,11 @@ namespace JetWars
     {
 
         private CustomTimer missileShootCooldown;
+        
+
         public CorporalEnemyJet(Vector2 position,float speed) : base("corporal",position,speed,5.0f)
         {
+            itemChanceToSpawn = 20;
             shootTimer = new CustomTimer(1000);
             missileShootCooldown = new CustomTimer(10000);
             items.Add(new MedKit(position));

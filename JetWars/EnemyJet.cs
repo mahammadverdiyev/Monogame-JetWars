@@ -8,7 +8,7 @@ namespace JetWars
     {
         protected Random rand;
         public Jet target;
-
+        public int itemChanceToSpawn;
         protected List<Item> items = new List<Item>();
 
         public List<Item> Items => items;

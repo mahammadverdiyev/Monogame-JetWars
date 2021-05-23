@@ -14,6 +14,7 @@ namespace JetWars
             movesRight = true;
             movesLeft = false;
 
+            itemChanceToSpawn = 85;
             items.Add(new AccuracyIncreaser(position));
             items.Add(new JetSpeedIncreaser(position));
             items.Add(new MaxHealthIncreaser(position));
@@ -95,22 +96,22 @@ namespace JetWars
                 float dotProduct = -1 * Vector2.Dot(playerToMe, playerToBullet);
 
                 if (
-                    //Physics.GetDistance(position, bullet.position) < hitDistance * 8
-                    //&& 
+                    Physics.GetDistance(position, bullet.position) < hitDistance * 8
+                    &&
                     dotProduct >= 0.99f
                     )
                 {
-                    //if(bullet.position.X > position.X)
-                    //{
-                    //    movesLeft = true;
-                    //    movesRight = false;
-                    //}
-                    //else if (bullet.position.X < position.X)
-                    //{
-                    //    movesLeft = false;
-                    //    movesRight = true;
-                    //}
-                    moveTimer = new CustomTimer(500);
+                    if (rand.Next(0, 2) == 0)
+                    {
+                        movesRight = true;
+                        movesLeft = false;
+                    }
+                    else
+                    {
+                        movesRight = false;
+                        movesLeft = true;
+                    }
+                    moveTimer = new CustomTimer(700);
                     return;
                 }
 

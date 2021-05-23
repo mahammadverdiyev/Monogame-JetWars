@@ -18,7 +18,7 @@ namespace JetWars
 			spawnableItemTypes.Add(typeof(FireSpeedIncreaser));
 			spawnableItemTypes.Add(typeof(AccuracyIncreaser));
 			spawnableItemTypes.Add(typeof(Shield));
-			spawnTimer = new CustomTimer(2000);
+			spawnTimer = new CustomTimer(3000);
 		}
 
 		public void Update()
@@ -58,7 +58,7 @@ namespace JetWars
 					return null;
 
 				int randX = random.Next(50, (int)(Globals.screenWidth - item.dimension.X - 50));
-				int randY = random.Next(50, (int)(Globals.screenHeight - item.dimension.Y - 50));
+				int randY = random.Next(Globals.screenHeight / 2, (int)(Globals.screenHeight - item.dimension.Y - 50));
 
 				item.position = new Vector2(randX, randY);
 				item.jet = GameGlobals.playerJet;
@@ -76,6 +76,11 @@ namespace JetWars
         public Item GetRandomItem(EnemyJet enemyJet)
 		{
 			Random random = new Random();
+
+			int chanceToSpawn = random.Next(0, 101);
+
+			if (chanceToSpawn > enemyJet.itemChanceToSpawn)
+				return null;
 
 			int randomIndex = random.Next(0, enemyJet.Items.Count);
 

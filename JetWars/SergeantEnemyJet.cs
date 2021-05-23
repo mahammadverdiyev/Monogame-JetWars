@@ -26,9 +26,10 @@ namespace JetWars
                 movesRight = false;
                 movesLeft = true;
             }
-
+            itemChanceToSpawn = 45;
             items.Add(new MedKit(position));
             items.Add(new Shield(position));
+            items.Add(new MaxHealthIncreaser(position));
         }
 
         public override void Update()
@@ -108,6 +109,8 @@ namespace JetWars
                 playerToMe.Normalize();
                 playerToBullet.Normalize();
 
+
+
                 float dotProduct = -1 * Vector2.Dot(playerToMe, playerToBullet);
 
                 if (
@@ -117,6 +120,16 @@ namespace JetWars
                     )
                 {
                     moveTimer = new CustomTimer(1000);
+                    if (rand.Next(0, 2) == 0)
+                    {
+                        movesRight = true;
+                        movesLeft = false;
+                    }
+                    else
+                    {
+                        movesRight = false;
+                        movesLeft = true;
+                    }
                     return;
                 }
 

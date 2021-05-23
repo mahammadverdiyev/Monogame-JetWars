@@ -7,6 +7,7 @@ namespace JetWars
         public Kamikaze(Vector2 position, float speed)
         : base("kamikaze", position, speed, 2f)
         {
+            itemChanceToSpawn = 30;
             items.Add(new FireSpeedIncreaser(position));
         }
 
