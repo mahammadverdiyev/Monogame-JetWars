@@ -123,6 +123,7 @@ namespace JetWars
         public void IncreaseMaxHealth()
         {
             maxHealth += 10;
+            health = maxHealth;
         }
 
         private void ShootRegularBullet()
