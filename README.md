@@ -1,11 +1,10 @@
 # Monogame-JetWars
 Simple 2d SpaceShip Shooter game developed with Monogame.
 
-If you have .NET Core, we suggest you to download .NET Core depended version because of its smaller size, or you can download and play it without having .NET Core, but in this case, app size will be about 167MB.
+x86 version
+https://www.mediafire.com/file/v6ibdqsqh9b53q4/JetWars_x86.rar/file
 
-.NET Core depended version
-https://www.mediafire.com/file/mnjazv5skpirctj/JetWars-.NETCoreDepended.rar/file
-
+x64 version
 Play without .NET Core
 https://www.mediafire.com/file/79dp9hzomu70wur/JetWars.rar/file
 
