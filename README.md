@@ -5,7 +5,6 @@ x86 version
 https://www.mediafire.com/file/v6ibdqsqh9b53q4/JetWars_x86.rar/file
 
 x64 version
-Play without .NET Core
 https://www.mediafire.com/file/79dp9hzomu70wur/JetWars.rar/file
 
 
